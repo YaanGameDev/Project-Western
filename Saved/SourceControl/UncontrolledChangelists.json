@@ -1,0 +1,13 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/Map/MainMap.umap",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/MainMap.umap"
+			]
+		}
+	]
+}
