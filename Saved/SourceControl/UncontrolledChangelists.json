@@ -6,7 +6,17 @@
 			"description": "Default Uncontrolled Changelist",
 			"files": [
 				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/Map/MainMap.umap",
-				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/MainMap.umap"
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/MainMap.umap",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/Death/HUD/HUD_Death.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/Death/Images/woody_triste-removebg-preview.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/Death/Images/linha_decorativa_-_you_were_defeated-removebg-preview.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/PauseGame/HUD/HUD_PauseGame.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/PauseGame/Images/cowboy-de-costas-removebg-preview.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/InGame/HUD/HUD_InGame.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/InGame/Fonts/MADE_Sunflower_PERSONAL_USE_Font.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/InGame/Fonts/MADE_Sunflower_PERSONAL_USE.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/Death/HUD_Death.uasset",
+				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/Death/Images/images-removebg-preview.uasset"
 			]
 		}
 	]
