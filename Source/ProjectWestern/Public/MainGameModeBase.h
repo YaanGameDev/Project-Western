@@ -4,14 +4,59 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Blueprint/UserWidget.h"
+
 #include "MainGameModeBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
+
 class PROJECTWESTERN_API AMainGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+	virtual void BeginPlay() override;
+
+public:
+	AMainGameModeBase();
+
+	enum EHUDState : uint8
+	{
+		HUD_MainMenu,
+		HUD_InGame,
+		HUD_PauseGame,
+		HUD_Death
+	};
+
+	void ApplyHUDChanges();
+
+	uint8 GetHUDState();
+
+	UFUNCTION(BlueprintCallable, Category = "HUD Functions")
+	void ChangeHUDState(uint8 newState);
+
+
+	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents);
+
+
+protected:
+	uint8 HUDState;
+
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
+		TSubclassOf<UUserWidget> MainMenuHUDClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
+		TSubclassOf<UUserWidget> InGameHUDClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
+		TSubclassOf<UUserWidget> PauseGameHUDClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
+		TSubclassOf<UUserWidget> DeathHUDClass;
+
+	UPROPERTY()
+	UUserWidget* CurrentWidget;
 };
