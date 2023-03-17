@@ -4,7 +4,6 @@
 # Visual Studio 2015 user specific files
 .vs/
 .vscode/
-BoxLife.code-workspace
 
 # Compiled Object files
 *.slo
@@ -83,24 +82,10 @@ CMakeLists.txt
 .idea/
 cmake-build-debug/
 cmake-build-release/
-Plugins/FMODStudio/Binaries/Win64/*.pdb
-.sp
-Source/BoxLife/Private/Services/_Generated/Model/entities.pb.cc
-Source/BoxLife/Private/Services/_Generated/Model/entities.pb.h
-Source/BoxLife/Private/Services/_Generated/Model/entity_storage.pb.cc
-Source/BoxLife/Private/Services/_Generated/Model/entity_storage.pb.h
-Source/BoxLife/Private/Services/_Generated/Services/client/EntityStorage.client.gen.cpp
-Source/BoxLife/Private/Services/_Generated/Services/client/EntityStorage.client.gen.h
-Source/BoxLife/Private/Services/_Generated/Model/any.pb.cc
-Source/BoxLife/Private/Services/_Generated/Model/any.pb.h
-Source/BoxLife/Private/Services/_Generated/Model/any.pb.cpp
-Source/BoxLife/Private/Services/_Generated/Model/entities.pb.cpp
-Source/BoxLife/Private/Services/_Generated/Model/entity_storage.pb.cpp
 CodeGraphData/*
 *.pdb
 
 #project thumbnail
-BoxLife.png
 Plugins/Developer
 Automation/Development/MemoryAnalyzer/bin
 Automation/Development/MemoryAnalyzer/obj
@@ -119,11 +104,6 @@ UnrealInsights.exe.lnk
 
 #entitlements
 !Build/*/*.entitlements
-Automation/BoxLife.Automation/bin
-Automation/BoxLife.Automation/obj
-Automation/Aquiris.Automation/obj/Release
-Automation/Aquiris.Automation/bin
-Automation/Aquiris.Automation/obj
 
 # Files generated when profiling the game
 Profiling/*
