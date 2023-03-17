@@ -6,32 +6,58 @@
 #include "GameFramework/Character.h"
 #include "CharacterRunner.generated.h"
 
+UENUM(BlueprintType)
+enum class EPlayerState : uint8
+{
+	STATE_Run,
+	STATE_Jump
+};
+
+
 UCLASS()
 class PROJECTWESTERN_API ACharacterRunner : public ACharacter
 {
+
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	ACharacterRunner();
+	
 
-	UPROPERTY(EditAnywhere)
-		class UCameraComponent* CameraPlayer;
+	//State Machine
+	EPlayerState currentPlayerState;
+
+	EPlayerState PreviousPlayerState;
+
+	UFUNCTION(BlueprintCallable)
+		void SetNewPlayerState(EPlayerState newState);
+
+	UFUNCTION(BlueprintPure)
+		EPlayerState GetPlayerState() const;
+
+	UFUNCTION()
+		void HandleStateEnd();
+
+	UFUNCTION()
+		void HandleStateEntered();
 
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+public:
 	virtual void Tick(float DeltaTime) override;
 
-	float RunSpeedPlayer = 50;
-
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+protected:
+	UPROPERTY(EditAnywhere)
+		class UCameraComponent* CameraPlayer;
 
+public:
+
+	//Player Run
+	void RunAutomatic();
+	float RunSpeedPlayer = 50;
 
 	//Player Jump
 	void PlayerJump();
@@ -39,9 +65,6 @@ public:
 	void StopPlayerJump();
 
 	UPROPERTY(BlueprintReadWrite)
-	bool IsJumping;
+		bool IsJumping;
 
-	//Variable set value for animation
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float ValueAnimation = 0.1;
 };

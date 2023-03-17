@@ -8,7 +8,7 @@
 // Sets default values
 ACharacterRunner::ACharacterRunner()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	CameraPlayer = CreateDefaultSubobject<UCameraComponent>(FName("Camera"));
@@ -23,14 +23,14 @@ ACharacterRunner::ACharacterRunner()
 void ACharacterRunner::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
 void ACharacterRunner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	AddMovementInput(GetActorForwardVector() * DeltaTime * RunSpeedPlayer);
+	RunAutomatic();
 
 }
 
@@ -43,20 +43,60 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
+void ACharacterRunner::RunAutomatic()
+{
+	AddMovementInput(GetActorForwardVector() * RunSpeedPlayer);
+	currentPlayerState = EPlayerState::STATE_Run;
+}
+
 void ACharacterRunner::PlayerJump()
 {
-	IsJumping = true;
-	if (IsJumping)
-	{
-		GetCharacterMovement()->AirControl = 20.f;
-		GetCharacterMovement()->JumpZVelocity = 425.f;
-		GetCharacterMovement()->GravityScale = 1.5f;
-	}
-	Jump();
+	currentPlayerState = EPlayerState::STATE_Jump;
+
+	GetCharacterMovement()->AirControl = 20.f;
+	GetCharacterMovement()->JumpZVelocity = 425.f;
+	GetCharacterMovement()->GravityScale = 1.5f;
+	
+
 }
 
 void ACharacterRunner::StopPlayerJump()
 {
 	IsJumping = false;
 }
+
+void ACharacterRunner::SetNewPlayerState(EPlayerState newState)
+{
+	PreviousPlayerState = currentPlayerState;
+	currentPlayerState = newState;
+}
+
+EPlayerState ACharacterRunner::GetPlayerState() const
+{
+	return currentPlayerState;
+}
+
+void ACharacterRunner::HandleStateEnd()
+{
+	switch (PreviousPlayerState)
+	{
+		case EPlayerState::STATE_Run:
+		{
+			break;
+		}
+		case EPlayerState::STATE_Jump:
+		{
+			break;
+		}	
+	}
+}
+
+void ACharacterRunner::HandleStateEntered()
+{
+	{
+
+	}
+}
+
+
 
