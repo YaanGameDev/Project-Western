@@ -2,9 +2,13 @@
 
 
 #include "EnemyObstacle.h"
+
+//Engine
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
+
+//ProjectWestern
 #include "CharacterRunner.h"
 #include "MainGameModeBase.h"
 
