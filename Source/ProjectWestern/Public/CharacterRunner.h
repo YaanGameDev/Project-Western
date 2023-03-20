@@ -6,13 +6,6 @@
 #include "GameFramework/Character.h"
 #include "CharacterRunner.generated.h"
 
-UENUM(BlueprintType)
-enum class EPlayerState : uint8
-{
-	STATE_Run,
-	STATE_Jump
-};
-
 
 UCLASS()
 class PROJECTWESTERN_API ACharacterRunner : public ACharacter
@@ -22,24 +15,6 @@ class PROJECTWESTERN_API ACharacterRunner : public ACharacter
 
 public:
 	ACharacterRunner();
-	
-
-	//State Machine
-	EPlayerState currentPlayerState;
-
-	EPlayerState PreviousPlayerState;
-
-	UFUNCTION(BlueprintCallable)
-		void SetNewPlayerState(EPlayerState newState);
-
-	UFUNCTION(BlueprintPure)
-		EPlayerState GetPlayerState() const;
-
-	UFUNCTION()
-		void HandleStateEnd();
-
-	UFUNCTION()
-		void HandleStateEntered();
 
 
 protected:
