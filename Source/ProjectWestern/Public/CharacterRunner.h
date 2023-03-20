@@ -40,5 +40,9 @@ public:
 		float JumpVelocity = 0;
 
 	void PlayerJump();
+	UPROPERTY(EditAnywhere, Category = "SettingJumpVelocity");
+		float JumpVelocity = 0;
+
+
 
 };
