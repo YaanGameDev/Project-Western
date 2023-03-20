@@ -38,12 +38,19 @@ void ACharacterRunner::Tick(float DeltaTime)
 void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterRunner::PlayerJump);
 
 }
 
 void ACharacterRunner::RunAutomatic()
 {
 	AddMovementInput(GetActorForwardVector() * RunSpeedPlayer);
+}
+
+void ACharacterRunner::PlayerJump()
+{
+	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
+	Jump();
 }
 
 

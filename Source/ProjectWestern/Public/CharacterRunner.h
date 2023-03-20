@@ -34,4 +34,11 @@ public:
 	void RunAutomatic();
 	float RunSpeedPlayer = 50;
 
+
+	//Player Jump
+	UPROPERTY(EditAnywhere, Category = "SettingsJumpVelocity")
+		float JumpVelocity = 0;
+
+	void PlayerJump();
+
 };
