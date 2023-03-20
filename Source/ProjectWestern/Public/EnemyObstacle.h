@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "EnemyObstacle.generated.h"
 
+class AMainGameModeBase;
 class ACharacterRunner;
 UCLASS()
 class PROJECTWESTERN_API AEnemyObstacle : public AActor
@@ -23,8 +24,15 @@ protected:
 	UPROPERTY(EditAnywhere)
 		class UStaticMeshComponent* MeshEnemy;
 
+
+	//Collision Destroy Enemy
 	UPROPERTY(EditAnywhere)
 		class USphereComponent* SphereCollisionEnemy;
+
+	UFUNCTION()
+	void BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
+
+	void ViewportDeathHUD();
 
 public:	
 	// Called every frame
@@ -34,4 +42,5 @@ public:
 public:
 	//Calling Actors
 	ACharacterRunner* CharacterRunner;
+	AMainGameModeBase* GameMode;
 };
