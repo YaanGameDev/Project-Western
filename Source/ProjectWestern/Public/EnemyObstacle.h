@@ -16,6 +16,13 @@ class PROJECTWESTERN_API AEnemyObstacle : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AEnemyObstacle();
+	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	//Calling Actors
+	ACharacterRunner* CharacterRunner;
+	AMainGameModeBase* GameMode;
 
 protected:
 	// Called when the game starts or when spawned
@@ -33,14 +40,4 @@ protected:
 	void BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
 
 	void ViewportDeathHUD();
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-
-public:
-	//Calling Actors
-	ACharacterRunner* CharacterRunner;
-	AMainGameModeBase* GameMode;
 };
