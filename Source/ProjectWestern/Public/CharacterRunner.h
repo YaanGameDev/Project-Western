@@ -61,10 +61,9 @@ public:
 
 	//Player Jump
 	void PlayerJump();
+	UPROPERTY(EditAnywhere, Category = "SettingJumpVelocity");
+		float JumpVelocity = 0;
 
-	void StopPlayerJump();
 
-	UPROPERTY(BlueprintReadWrite)
-		bool IsJumping;
 
 };

@@ -39,63 +39,18 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterRunner::PlayerJump);
-	InputComponent->BindAction("Jump", IE_Released, this, &ACharacterRunner::StopPlayerJump);
 
 }
 
 void ACharacterRunner::RunAutomatic()
 {
 	AddMovementInput(GetActorForwardVector() * RunSpeedPlayer);
-	currentPlayerState = EPlayerState::STATE_Run;
 }
 
 void ACharacterRunner::PlayerJump()
 {
-	currentPlayerState = EPlayerState::STATE_Jump;
-
-	GetCharacterMovement()->AirControl = 20.f;
-	GetCharacterMovement()->JumpZVelocity = 425.f;
-	GetCharacterMovement()->GravityScale = 1.5f;
-	
-
-}
-
-void ACharacterRunner::StopPlayerJump()
-{
-	IsJumping = false;
-}
-
-void ACharacterRunner::SetNewPlayerState(EPlayerState newState)
-{
-	PreviousPlayerState = currentPlayerState;
-	currentPlayerState = newState;
-}
-
-EPlayerState ACharacterRunner::GetPlayerState() const
-{
-	return currentPlayerState;
-}
-
-void ACharacterRunner::HandleStateEnd()
-{
-	switch (PreviousPlayerState)
-	{
-		case EPlayerState::STATE_Run:
-		{
-			break;
-		}
-		case EPlayerState::STATE_Jump:
-		{
-			break;
-		}	
-	}
-}
-
-void ACharacterRunner::HandleStateEntered()
-{
-	{
-
-	}
+	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
+	Jump();
 }
 
 
