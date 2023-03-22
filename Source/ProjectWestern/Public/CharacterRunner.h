@@ -19,7 +19,11 @@ public:
 	ACharacterRunner();
 
 	//Calling Actors
+	UPROPERTY()
 	ACharacterRunner* CharacterRunner;
+
+	UPROPERTY()
+	AWeapon* Weapon;
 
 	//Player Run
 	void RunAutomatic();
@@ -27,15 +31,8 @@ public:
 
 	//Player Jump
 	void PlayerJump();
-	UPROPERTY(EditAnywhere, Category = "SettingJumpVelocity");
+	UPROPERTY(EditDefaultsOnly, Category = "SettingJumpVelocity");
 	float JumpVelocity = 0;
-
-	//Spawn Weapon
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<AWeapon> BP_Weapon;
-
-	void SpawnWeapon();
-
 
 	virtual void Tick(float DeltaTime) override;
 
@@ -45,6 +42,9 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+		TSubclassOf<class AWeapon> WeaponClass;
 
 	UPROPERTY(EditAnywhere)
 		class UCameraComponent* CameraPlayer;

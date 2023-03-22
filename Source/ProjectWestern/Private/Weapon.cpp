@@ -3,25 +3,30 @@
 
 #include "Weapon.h"
 
+//Engine
+#include "Components/StaticMeshComponent.h"
+
+//Project
+#include "CharacterRunner.h"
+
 // Sets default values
 AWeapon::AWeapon()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	MeshWeapon = CreateDefaultSubobject<UStaticMeshComponent>(FName("MeshWeapon"));
+	RootComponent = MeshWeapon;
 
+	ConstructorHelpers::FObjectFinder<UStaticMesh>Revolvi(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Pipe.Shape_Pipe'"));
+
+	if (Revolvi.Succeeded())
+	{
+		MeshWeapon->SetStaticMesh(Revolvi.Object);
+	}
 }
 
 // Called when the game starts or when spawned
 void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void AWeapon::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 
 }
 

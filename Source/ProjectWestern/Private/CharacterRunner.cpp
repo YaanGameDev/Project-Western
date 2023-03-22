@@ -29,16 +29,13 @@ ACharacterRunner::ACharacterRunner()
 void ACharacterRunner::BeginPlay()
 {
 	Super::BeginPlay();
-}
 
-void ACharacterRunner::SpawnWeapon()
-{
-	FActorSpawnParameters ParametersSpawn;
-	ParametersSpawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
-	AWeapon* Weapon = GetWorld()->SpawnActor<AWeapon>(BP_Weapon, ParametersSpawn);
+	FActorSpawnParameters Parameters;
+	Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass, FTransform(), Parameters);
 	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_pickup"));
 }
+
 
 // Called every frame
 void ACharacterRunner::Tick(float DeltaTime)
