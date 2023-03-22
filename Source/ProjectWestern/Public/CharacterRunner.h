@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "CharacterRunner.generated.h"
 
+class ACharacterRunner;
+class AWeapon;
 
 UCLASS()
 class PROJECTWESTERN_API ACharacterRunner : public ACharacter
@@ -16,19 +18,8 @@ class PROJECTWESTERN_API ACharacterRunner : public ACharacter
 public:
 	ACharacterRunner();
 
-
-protected:
-	virtual void BeginPlay() override;
-
-public:
-	virtual void Tick(float DeltaTime) override;
-
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-protected:
-	UPROPERTY(EditAnywhere)
-		class UCameraComponent* CameraPlayer;
-
-public:
+	//Calling Actors
+	ACharacterRunner* CharacterRunner;
 
 	//Player Run
 	void RunAutomatic();
@@ -37,7 +28,28 @@ public:
 	//Player Jump
 	void PlayerJump();
 	UPROPERTY(EditAnywhere, Category = "SettingJumpVelocity");
-		float JumpVelocity = 0;
+	float JumpVelocity = 0;
+
+	//Spawn Weapon
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AWeapon> BP_Weapon;
+
+	void SpawnWeapon();
+
+
+	virtual void Tick(float DeltaTime) override;
+
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+protected:
+	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere)
+		class UCameraComponent* CameraPlayer;
+	
+	
 
 
 

@@ -2,8 +2,14 @@
 
 
 #include "CharacterRunner.h"
+
+//Engine
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
+
+//Project
+#include "Weapon.h"
+#include "CharacterRunner.h"
 
 // Sets default values
 ACharacterRunner::ACharacterRunner()
@@ -23,7 +29,15 @@ ACharacterRunner::ACharacterRunner()
 void ACharacterRunner::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
+void ACharacterRunner::SpawnWeapon()
+{
+	FActorSpawnParameters ParametersSpawn;
+	ParametersSpawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	AWeapon* Weapon = GetWorld()->SpawnActor<AWeapon>(BP_Weapon, ParametersSpawn);
+	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_pickup"));
 }
 
 // Called every frame
