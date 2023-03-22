@@ -19,10 +19,6 @@ public:
 	//Calling Actors
 	ACharacterRunner* CharacterRunner;
 
-	//Variable to set life on NPC
-	UPROPERTY(EditAnywhere)
-		float Health = 100;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
