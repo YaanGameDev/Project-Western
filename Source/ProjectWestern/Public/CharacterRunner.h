@@ -8,6 +8,8 @@
 
 class ACharacterRunner;
 class AWeapon;
+class AMainGameModeBase;
+class AProjectile;
 
 UCLASS()
 class PROJECTWESTERN_API ACharacterRunner : public ACharacter
@@ -21,9 +23,9 @@ public:
 	//Calling Actors
 	UPROPERTY()
 	ACharacterRunner* CharacterRunner;
-
 	UPROPERTY()
 	AWeapon* Weapon;
+	AMainGameModeBase* GameMode;
 
 	//Player Run
 	void RunAutomatic();
@@ -43,14 +45,18 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
-		TSubclassOf<class AWeapon> WeaponClass;
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+		TSoftClassPtr<class AWeapon> WeaponClass;
 
 	UPROPERTY(EditAnywhere)
 		class UCameraComponent* CameraPlayer;
 	
 	
+	//Fire Projectile
+	void FireProjectile();
 
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+		TSoftClassPtr<class AProjectile> ProjectileClass;
 
 
 };

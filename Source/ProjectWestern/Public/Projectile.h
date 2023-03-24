@@ -18,9 +18,20 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//Forward Projectile
+
+	UPROPERTY(EditAnywhere)
+		float VelocityProjectile = 0;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere)
+		class UStaticMeshComponent* Projectile;
+
+	UPROPERTY(EditAnywhere)
+		class USphereComponent* CollisionProjectile;
 
 	
 

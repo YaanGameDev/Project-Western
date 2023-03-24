@@ -1,13 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "Weapon.h"
 
 //Engine
 #include "Components/StaticMeshComponent.h"
+#include "Components/SphereComponent.h"
 
 //Project
 #include "CharacterRunner.h"
+#include "Projectile.h"
 
 // Sets default values
 AWeapon::AWeapon()
@@ -15,12 +14,19 @@ AWeapon::AWeapon()
 	MeshWeapon = CreateDefaultSubobject<UStaticMeshComponent>(FName("MeshWeapon"));
 	RootComponent = MeshWeapon;
 
-	ConstructorHelpers::FObjectFinder<UStaticMesh>Revolvi(TEXT("/Script/Engine.StaticMesh'/Game/StarterContent/Shapes/Shape_Pipe.Shape_Pipe'"));
+	ProjectileSpawn = CreateDefaultSubobject<USphereComponent>(FName("SpawnProjectile"));
+	ProjectileSpawn->SetupAttachment(MeshWeapon);
+}
 
-	if (Revolvi.Succeeded())
-	{
-		MeshWeapon->SetStaticMesh(Revolvi.Object);
-	}
+void AWeapon::SpawnProjectile(const FRotator& projectileRotation)
+{
+	FActorSpawnParameters ParametersProjectile;
+	ParametersProjectile.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	FVector SpawnProjectile = ProjectileSpawn->GetComponentLocation();
+
+	Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnProjectile, projectileRotation, ParametersProjectile);
+	Projectile->AttachToActor(this, FAttachmentTransformRules::SnapToTargetIncludingScale, FName(NAME_None));
 }
 
 // Called when the game starts or when spawned
