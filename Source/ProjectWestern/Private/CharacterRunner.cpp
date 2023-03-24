@@ -2,8 +2,16 @@
 
 
 #include "CharacterRunner.h"
+
+//Engine
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
+
+//Project
+#include "Weapon.h"
+#include "CharacterRunner.h"
+#include "MainGameModeBase.h"
+#include "Projectile.h"
 
 // Sets default values
 ACharacterRunner::ACharacterRunner()
@@ -24,7 +32,21 @@ void ACharacterRunner::BeginPlay()
 {
 	Super::BeginPlay();
 
+	FActorSpawnParameters Parameters;
+	Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass.LoadSynchronous(), FTransform(), Parameters);
+	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_pickup"));
 }
+
+void ACharacterRunner::FireProjectile()
+{
+	if (IsValid(Weapon))
+	{
+		Weapon->SpawnProjectile({});
+	}
+}
+	
+
 
 // Called every frame
 void ACharacterRunner::Tick(float DeltaTime)
@@ -39,6 +61,7 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterRunner::PlayerJump);
+	InputComponent->BindAction("Fire", IE_Pressed, this, & ACharacterRunner::FireProjectile);
 
 }
 
