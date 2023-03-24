@@ -10,6 +10,7 @@
 
 //Project
 #include "CharacterRunner.h"
+#include "Projectile.h"
 
 // Sets default values
 ANPC_Enemy::ANPC_Enemy()
@@ -33,11 +34,13 @@ void ANPC_Enemy::BeginPlay()
 
 void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	CharacterRunner = Cast<ACharacterRunner>(UGameplayStatics::GetPlayerCharacter(this, 0));
+	ACharacterRunner* CharacterRunner = Cast<ACharacterRunner>(OtherActor);
 	if (IsValid(CharacterRunner))
 	{
 		CharacterRunner->Destroy();
+		return;
 	}
 	
+	AProjectile* Projectile = Cast<AProjectile>(OtherActor);
 }
 

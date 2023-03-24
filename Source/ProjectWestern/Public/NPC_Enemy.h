@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "NPC_Enemy.generated.h"
 
-class ACharacterRunner;
+class AProjectile;
 
 UCLASS()
 class PROJECTWESTERN_API ANPC_Enemy : public AActor
@@ -15,9 +15,6 @@ class PROJECTWESTERN_API ANPC_Enemy : public AActor
 	
 public:	
 	ANPC_Enemy();
-
-	//Calling Actors
-	ACharacterRunner* CharacterRunner;
 
 protected:
 	// Called when the game starts or when spawned
