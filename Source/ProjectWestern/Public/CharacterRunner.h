@@ -6,6 +6,10 @@
 #include "GameFramework/Character.h"
 #include "CharacterRunner.generated.h"
 
+class ACharacterRunner;
+class AWeapon;
+class AMainGameModeBase;
+class AProjectile;
 
 UCLASS()
 class PROJECTWESTERN_API ACharacterRunner : public ACharacter
@@ -16,19 +20,12 @@ class PROJECTWESTERN_API ACharacterRunner : public ACharacter
 public:
 	ACharacterRunner();
 
-
-protected:
-	virtual void BeginPlay() override;
-
-public:
-	virtual void Tick(float DeltaTime) override;
-
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-protected:
-	UPROPERTY(EditAnywhere)
-		class UCameraComponent* CameraPlayer;
-
-public:
+	//Calling Actors
+	UPROPERTY()
+	ACharacterRunner* CharacterRunner;
+	UPROPERTY()
+	AWeapon* Weapon;
+	AMainGameModeBase* GameMode;
 
 	//Player Run
 	void RunAutomatic();
@@ -36,9 +33,30 @@ public:
 
 	//Player Jump
 	void PlayerJump();
-	UPROPERTY(EditAnywhere, Category = "SettingJumpVelocity");
-		float JumpVelocity = 0;
+	UPROPERTY(EditDefaultsOnly, Category = "SettingJumpVelocity");
+	float JumpVelocity = 0;
 
+	virtual void Tick(float DeltaTime) override;
+
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+protected:
+	virtual void BeginPlay() override;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+		TSoftClassPtr<class AWeapon> WeaponClass;
+
+	UPROPERTY(EditAnywhere)
+		class UCameraComponent* CameraPlayer;
+	
+	
+	//Fire Projectile
+	void FireProjectile();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+		TSoftClassPtr<class AProjectile> ProjectileClass;
 
 
 };

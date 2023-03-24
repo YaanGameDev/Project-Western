@@ -1,0 +1,40 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "Weapon.generated.h"
+
+class ACharacterRunner;
+class AProjectile;
+
+UCLASS()
+class PROJECTWESTERN_API AWeapon : public AActor
+{
+	GENERATED_BODY()
+	
+public:	
+	// Sets default values for this actor's properties
+	AWeapon();
+
+	ACharacterRunner* CharacterRunner;
+	AProjectile* Projectile;
+
+	UPROPERTY(EditAnywhere)
+		class UStaticMeshComponent* MeshWeapon;
+
+	//SpawnProjectile
+	void SpawnProjectile(const FRotator& projectileRotation);
+
+	UPROPERTY(EditAnywhere, Category = Weapon)
+		TSubclassOf<AProjectile> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+		class USphereComponent* ProjectileSpawn;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+};
