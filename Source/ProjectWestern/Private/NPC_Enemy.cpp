@@ -25,6 +25,23 @@ ANPC_Enemy::ANPC_Enemy()
 
 }
 
+void ANPC_Enemy::SetHealth(float Dano)
+{
+	if (Health >= 0.0f)
+	{
+		Health -= Dano;
+	}
+	else if (Health <= 0.0f)
+	{
+		Destroy();
+	}
+}
+
+float ANPC_Enemy::GetHealth()
+{
+	return Health;
+}
+
 // Called when the game starts or when spawned
 void ANPC_Enemy::BeginPlay()
 {

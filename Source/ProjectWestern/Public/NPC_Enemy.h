@@ -16,6 +16,16 @@ class PROJECTWESTERN_API ANPC_Enemy : public AActor
 public:	
 	ANPC_Enemy();
 
+	// Variables for add health in Enemy
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health")
+		float Health;
+
+	UFUNCTION()
+		void SetHealth(float Dano);
+
+	UFUNCTION()
+		float GetHealth();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

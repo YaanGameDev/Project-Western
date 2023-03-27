@@ -6,9 +6,12 @@
 //Engine
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 //Project
 #include "Weapon.h"
+#include "CharacterRunner.h"
+#include "NPC_Enemy.h"
 
 
 // Sets default values
@@ -22,6 +25,8 @@ AProjectile::AProjectile()
 
 	CollisionProjectile = CreateDefaultSubobject<USphereComponent>(FName("CollisionProjectile"));
 	CollisionProjectile->SetupAttachment(Projectile);
+
+	CollisionProjectile->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::BeginCollisionProjectile);
 }
 
 // Called when the game starts or when spawned
@@ -31,13 +36,31 @@ void AProjectile::BeginPlay()
 	
 }
 
+void AProjectile::BeginCollisionProjectile(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	Enemy = Cast<ANPC_Enemy>(OtherActor);
+	if (IsValid(Enemy))
+	{
+		TArray<AActor*>Actors;
+		GetOverlappingActors(Actors);
+		for (AActor* Actor : Actors)
+		{
+			if (Enemy)
+			{
+				Enemy->SetHealth(100.f);
+				Enemy->Destroy();
+				Projectile->DestroyComponent();
+			}
+		}
+		
+	}
+}
+
 // Called every frame
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector CurrentLocation = GetActorLocation();
-	FRotator CurrentRotation = GetActorRotation();
-	CurrentLocation.Y -= VelocityProjectile;
-	SetActorLocation(CurrentLocation);
+	FVector CurrentDirecion = { 0.0 , -VelocityProjectile , 0.0};
+	Projectile->AddForce(CurrentDirecion * 10, NAME_None, true);
 }
