@@ -12,15 +12,14 @@ void AMainGameModeBase::BeginPlay()
 }
 
 AMainGameModeBase::AMainGameModeBase()
-	: Super()
 {
 	HUDState = EHUDState::HUD_MainMenu;
 }
 
 void AMainGameModeBase::ApplyHUDChanges()
 {
-	if (CurrentWidget != nullptr)
-	{
+	if (IsValid(CurrentWidget))
+	{	
 		CurrentWidget->RemoveFromParent();
 	}
 
@@ -54,12 +53,13 @@ void AMainGameModeBase::ApplyHUDChanges()
 	}
 }
 
-uint8 AMainGameModeBase::GetHUDState()
+EHUDState AMainGameModeBase::GetHUDState()
 {
 	return HUDState;
 }
 
-void AMainGameModeBase::ChangeHUDState(uint8 newState)
+
+void AMainGameModeBase::ChangeHUDState(EHUDState newState)
 {
 	HUDState = newState;
 	ApplyHUDChanges();
@@ -71,6 +71,8 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 
 	if (WidgetToApply != nullptr)
 	{
+		FInputModeUIOnly UIOnly;
+		MyController->SetInputMode(UIOnly);
 		MyController->bShowMouseCursor = bShowMouseCursor;
 		MyController->bEnableClickEvents = EnableClickEvents;
 
@@ -83,7 +85,9 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 			return true;
 
 		}
-		else return false;
+		return false;
 	}
-	else return	false;
+	FInputModeGameOnly GameOnly;
+	MyController->SetInputMode(GameOnly);
+	 return	false;
 }

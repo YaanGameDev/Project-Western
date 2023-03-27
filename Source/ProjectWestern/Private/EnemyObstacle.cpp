@@ -47,7 +47,7 @@ void AEnemyObstacle::BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent
 void AEnemyObstacle::ViewportDeathHUD()
 {
 	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
-	GameMode->ChangeHUDState(GameMode->HUD_Death);
+	GameMode->ChangeHUDState(EHUDState::HUD_Death);
 }
 
 // Called every frame
