@@ -6,9 +6,12 @@
 //Engine
 #include "Components/StaticMeshComponent.h"
 #include "Components/SphereComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 //Project
 #include "Weapon.h"
+#include "CharacterRunner.h"
+#include "NPC_Enemy.h"
 
 
 // Sets default values
@@ -22,6 +25,8 @@ AProjectile::AProjectile()
 
 	CollisionProjectile = CreateDefaultSubobject<USphereComponent>(FName("CollisionProjectile"));
 	CollisionProjectile->SetupAttachment(Projectile);
+
+	CollisionProjectile->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::BeginCollisionProjectile);
 }
 
 // Called when the game starts or when spawned
@@ -42,7 +47,7 @@ void AProjectile::BeginCollisionProjectile(UPrimitiveComponent* OverlappedCompon
 		{
 			if (Enemy)
 			{
-				Enemy->SetHealth(FMath::FRandRange(30,70));
+				Enemy->SetHealth(100.f);
 				Enemy->Destroy();
 				Projectile->DestroyComponent();
 			}
@@ -56,8 +61,6 @@ void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector CurrentLocation = GetActorLocation();
-	FRotator CurrentRotation = GetActorRotation();
-	CurrentLocation.Y -= VelocityProjectile;
-	SetActorLocation(CurrentLocation);
+	FVector CurrentDirecion = { 0.0 , -VelocityProjectile , 0.0};
+	Projectile->AddForce(CurrentDirecion * 10, NAME_None, true);
 }
