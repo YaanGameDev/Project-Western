@@ -12,10 +12,10 @@
 AWeapon::AWeapon()
 {
 	MeshWeapon = CreateDefaultSubobject<UStaticMeshComponent>(FName("MeshWeapon"));
-	RootComponent = MeshWeapon;
+	MeshWeapon->SetupAttachment(RootComponent);
 
-	ProjectileSpawn = CreateDefaultSubobject<USphereComponent>(FName("SpawnProjectile"));
-	ProjectileSpawn->SetupAttachment(MeshWeapon);
+	SphereSpawnProjectile = CreateDefaultSubobject<USphereComponent>(FName("SphereSpawn"));
+	SphereSpawnProjectile->SetupAttachment(MeshWeapon);
 }
 
 void AWeapon::SpawnProjectile(const FRotator& projectileRotation)
@@ -23,7 +23,7 @@ void AWeapon::SpawnProjectile(const FRotator& projectileRotation)
 	FActorSpawnParameters ParametersProjectile;
 	ParametersProjectile.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	FVector SpawnProjectile = ProjectileSpawn->GetComponentLocation();
+	FVector SpawnProjectile = GetActorLocation();
 
 	Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnProjectile, projectileRotation, ParametersProjectile);
 	Projectile->AttachToActor(this, FAttachmentTransformRules::SnapToTargetIncludingScale, FName(NAME_None));

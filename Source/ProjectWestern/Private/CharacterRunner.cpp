@@ -44,9 +44,17 @@ void ACharacterRunner::FireProjectile()
 	{
 		Weapon->SpawnProjectile({});
 	}
+	IsShooting = false;
 }
-	
 
+void ACharacterRunner::ShootingTrue()
+{
+	if (IsValid(Weapon))
+	{
+		return;
+	}
+	IsShooting = true;
+}
 
 // Called every frame
 void ACharacterRunner::Tick(float DeltaTime)
@@ -61,8 +69,8 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterRunner::PlayerJump);
-	InputComponent->BindAction("Fire", IE_Pressed, this, & ACharacterRunner::FireProjectile);
-
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterRunner::ShootingTrue);
+	InputComponent->BindAction("Fire", IE_Released, this, & ACharacterRunner::FireProjectile);
 }
 
 void ACharacterRunner::RunAutomatic()

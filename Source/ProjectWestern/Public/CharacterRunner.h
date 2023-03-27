@@ -55,8 +55,9 @@ protected:
 	//Fire Projectile
 	void FireProjectile();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-		TSoftClassPtr<class AProjectile> ProjectileClass;
+	void ShootingTrue();
 
+	UPROPERTY(BlueprintReadWrite)
+		bool IsShooting;
 
 };

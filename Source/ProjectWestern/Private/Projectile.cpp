@@ -31,6 +31,26 @@ void AProjectile::BeginPlay()
 	
 }
 
+void AProjectile::BeginCollisionProjectile(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	Enemy = Cast<ANPC_Enemy>(OtherActor);
+	if (IsValid(Enemy))
+	{
+		TArray<AActor*>Actors;
+		GetOverlappingActors(Actors);
+		for (AActor* Actor : Actors)
+		{
+			if (Enemy)
+			{
+				Enemy->SetHealth(FMath::FRandRange(30,70));
+				Enemy->Destroy();
+				Projectile->DestroyComponent();
+			}
+		}
+		
+	}
+}
+
 // Called every frame
 void AProjectile::Tick(float DeltaTime)
 {
