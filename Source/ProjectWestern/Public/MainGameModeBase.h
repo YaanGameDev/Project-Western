@@ -8,6 +8,15 @@
 
 #include "MainGameModeBase.generated.h"
 
+UENUM(BlueprintType)
+enum class EHUDState : uint8
+{
+	HUD_MainMenu,
+	HUD_InGame,
+	HUD_PauseGame,
+	HUD_Death
+};
+
 /**
  * 
  */
@@ -22,27 +31,21 @@ class PROJECTWESTERN_API AMainGameModeBase : public AGameModeBase
 public:
 	AMainGameModeBase();
 
-	enum EHUDState : uint8
-	{
-		HUD_MainMenu,
-		HUD_InGame,
-		HUD_PauseGame,
-		HUD_Death
-	};
+	
 
 	void ApplyHUDChanges();
 
-	uint8 GetHUDState();
+	EHUDState GetHUDState();
 
 	UFUNCTION(BlueprintCallable, Category = "HUD Functions")
-	void ChangeHUDState(uint8 newState);
+	void ChangeHUDState(EHUDState newState);
 
 
 	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents);
 
 
 protected:
-	uint8 HUDState;
+	EHUDState HUDState;
 
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))

@@ -24,14 +24,15 @@ public:
 	UPROPERTY(EditAnywhere)
 		class UStaticMeshComponent* MeshWeapon;
 
+	UPROPERTY(EditAnywhere)
+		class USphereComponent* SphereSpawnProjectile;
+
+
 	//SpawnProjectile
 	void SpawnProjectile(const FRotator& projectileRotation);
 
 	UPROPERTY(EditAnywhere, Category = Weapon)
 		TSubclassOf<AProjectile> ProjectileClass;
-
-	UPROPERTY(EditAnywhere, Category = "Projectile")
-		class USphereComponent* ProjectileSpawn;
 
 protected:
 	// Called when the game starts or when spawned
