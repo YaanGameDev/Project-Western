@@ -11,6 +11,7 @@
 //Project
 #include "CharacterRunner.h"
 #include "Projectile.h"
+#include "MainGameModeBase.h"
 
 // Sets default values
 ANPC_Enemy::ANPC_Enemy()
@@ -55,9 +56,14 @@ void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent
 	if (IsValid(CharacterRunner))
 	{
 		CharacterRunner->Destroy();
+		ViewportDeathHUD();
 		return;
 	}
-	
-	AProjectile* Projectile = Cast<AProjectile>(OtherActor);
+}
+
+void ANPC_Enemy::ViewportDeathHUD()
+{
+	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
+	GameMode->ChangeHUDState(EHUDState::HUD_Death);
 }
 

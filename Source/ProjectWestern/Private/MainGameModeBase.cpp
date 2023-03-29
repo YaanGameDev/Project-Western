@@ -63,6 +63,18 @@ void AMainGameModeBase::ChangeHUDState(EHUDState newState)
 {
 	HUDState = newState;
 	ApplyHUDChanges();
+
+	APlayerController* MyController = GetWorld()->GetFirstPlayerController();
+	if (HUDState == EHUDState::HUD_InGame)
+	{
+		FInputModeGameOnly GameOnly;
+		MyController->SetInputMode(GameOnly);
+	}
+	else
+	{
+		FInputModeUIOnly UIOnly;
+		MyController->SetInputMode(UIOnly);
+	}
 }
 
 bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents)
@@ -71,11 +83,8 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 
 	if (WidgetToApply != nullptr)
 	{
-		FInputModeUIOnly UIOnly;
-		MyController->SetInputMode(UIOnly);
 		MyController->bShowMouseCursor = bShowMouseCursor;
 		MyController->bEnableClickEvents = EnableClickEvents;
-
 
 		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), WidgetToApply);
 
@@ -83,11 +92,8 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 		{
 			CurrentWidget->AddToViewport();
 			return true;
-
 		}
 		return false;
 	}
-	FInputModeGameOnly GameOnly;
-	MyController->SetInputMode(GameOnly);
 	 return	false;
 }

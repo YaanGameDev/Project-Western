@@ -22,6 +22,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		float VelocityProjectile = 0;
 
+	UPROPERTY()
 	ANPC_Enemy* Enemy;
 
 protected:
