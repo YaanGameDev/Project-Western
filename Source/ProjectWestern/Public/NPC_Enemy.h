@@ -29,17 +29,20 @@ public:
 	UFUNCTION()
 		float GetHealth();
 
+	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, Category = "VelocityEnemy")
+		FVector VelocityEnemy = { 0,0,0 };
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	//SkeletalMesh
 	UPROPERTY(EditAnywhere)
-		class USkeletalMeshComponent* SkeletalMeshNPC;
+		class UStaticMeshComponent* StaticMesh;
 
 	UPROPERTY(EditAnywhere)
 		class UBoxComponent* BoxCollision;
-	
 
 private:
 	//Collision Destroy Player

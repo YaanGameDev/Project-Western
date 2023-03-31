@@ -4,8 +4,8 @@
 #include "NPC_Enemy.h"
 
 //Engine
-#include "Components/SkeletalMeshComponent.h"
 #include "Components/BoxComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 //Project
@@ -16,11 +16,13 @@
 // Sets default values
 ANPC_Enemy::ANPC_Enemy()
 {
-	SkeletalMeshNPC = CreateDefaultSubobject<USkeletalMeshComponent>(FName("SkeletalMeshNPC"));
-	RootComponent = SkeletalMeshNPC;
+	PrimaryActorTick.bCanEverTick = true;
+
+	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("StaticMesh"));
+	RootComponent = StaticMesh;
 
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(FName("BoxCollision"));
-	BoxCollision->SetupAttachment(SkeletalMeshNPC);
+	BoxCollision->SetupAttachment(StaticMesh);
 
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &ANPC_Enemy::BeginCollisionNPCEnemy);
 
@@ -47,7 +49,6 @@ float ANPC_Enemy::GetHealth()
 void ANPC_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -65,5 +66,14 @@ void ANPC_Enemy::ViewportDeathHUD()
 {
 	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
 	GameMode->ChangeHUDState(EHUDState::HUD_Death);
+}
+
+void ANPC_Enemy::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	FVector CurrentLocation = GetActorLocation();
+	CurrentLocation = CurrentLocation + VelocityEnemy * DeltaTime;
+	SetActorLocation(CurrentLocation);
 }
 
