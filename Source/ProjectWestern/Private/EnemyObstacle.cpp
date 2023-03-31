@@ -55,5 +55,9 @@ void AEnemyObstacle::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FVector CurrentLocation = GetActorLocation();
+	CurrentLocation = CurrentLocation + VelocityObstacle * DeltaTime;
+	SetActorLocation(CurrentLocation);
+
 }
 

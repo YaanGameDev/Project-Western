@@ -7,6 +7,7 @@
 #include "SpawnEnemy.generated.h"
 
 class ANPC_Enemy;
+class AEnemyObstacle;
 
 UCLASS()
 class PROJECTWESTERN_API ASpawnEnemy : public AActor
@@ -24,17 +25,33 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	//Spawn Actor (Enemy)
-	UPROPERTY()
-	ANPC_Enemy* Enemy;
-
+	//Spawn Enemy Location
 	UPROPERTY(EditAnywhere)
 		class UBoxComponent* SpawnEnemyLocation;
-	
+
+	//Spawn Actor (Enemy - NPC)
+	UPROPERTY()
+	ANPC_Enemy* NPCEnemy;
+
 	UPROPERTY(EditAnywhere, Category = "SpawnEnemy")
-		TSubclassOf<ANPC_Enemy>SpawnEnemy;
+		TSubclassOf<ANPC_Enemy>SpawnNPC;
+
+	//Spawn Actor ( Enemy - Obstacle )
+
+	UPROPERTY()
+	AEnemyObstacle* Obstacle;
+
+	UPROPERTY(EditAnywhere, Category = "SpawnEnemy")
+		TSubclassOf<AEnemyObstacle> SpawnObstacle;
 
 	UFUNCTION()
-		void EnemyLocation();
-	
+		void ObstacleEnemyLocation();
+
+	UPROPERTY(EditAnywhere)
+		float Spawn1 = 0;
+
+	UPROPERTY(EditAnywherE)
+		float Spawn2 = 0;
+	//Test
+	void SpawnEntity();	
 };
