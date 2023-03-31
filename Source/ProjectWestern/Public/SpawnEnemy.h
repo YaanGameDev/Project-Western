@@ -35,6 +35,6 @@ protected:
 		TSubclassOf<ANPC_Enemy>SpawnEnemy;
 
 	UFUNCTION()
-		void SpawnActor();
+		void EnemyLocation();
 	
 };

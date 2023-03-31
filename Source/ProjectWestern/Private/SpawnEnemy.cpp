@@ -3,6 +3,10 @@
 //Engine
 #include "Math/UnrealMathUtility.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
+#include "Engine/TargetPoint.h"
+#include "Components/SphereComponent.h"
 
 //Project
 #include "NPC_Enemy.h"
@@ -23,24 +27,29 @@ void ASpawnEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SpawnActor();
+	
 
 }
 
-void ASpawnEnemy::SpawnActor()
+void ASpawnEnemy::EnemyLocation()
 {
-	FActorSpawnParameters SpawnEnemyParameters;
-	SpawnEnemyParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	TArray<AActor*> LocalEnemy;
 
-	FVector SpawnLocation = SpawnEnemyLocation->GetComponentLocation();
-	FRotator SpawnRotation = GetActorRotation();
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ANPC_Enemy::StaticClass(), LocalEnemy);
 
-	GetWorld()->SpawnActor<ANPC_Enemy>(SpawnEnemy, SpawnLocation, SpawnRotation, SpawnEnemyParameters);
+	if (LocalEnemy.IsEmpty())
+	{
+		FActorSpawnParameters SpawnParameters = FActorSpawnParameters();
+		
+		GetWorld()->SpawnActor<ANPC_Enemy>(SpawnEnemy, GetActorLocation(), GetActorRotation(), SpawnParameters);
+	}
 }
 
 // Called every frame
 void ASpawnEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	EnemyLocation();
+
 }
 
