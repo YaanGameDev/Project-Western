@@ -60,7 +60,7 @@ void ACharacterRunner::ShootingTrue()
 void ACharacterRunner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	RunAutomatic();
+	//RunAutomatic();
 
 }
 
