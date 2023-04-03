@@ -4,12 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "HostileEntity.h"
 #include "NPC_Enemy.generated.h"
 
 class AMainGameModeBase;
 
 UCLASS()
-class PROJECTWESTERN_API ANPC_Enemy : public AActor
+class PROJECTWESTERN_API ANPC_Enemy : public AHostileEntity
 {
 	GENERATED_BODY()
 	
@@ -30,9 +31,6 @@ public:
 		float GetHealth();
 
 	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY(EditAnywhere, Category = "VelocityEnemy")
-		FVector VelocityEnemy = { 0,0,0 };
 
 protected:
 	// Called when the game starts or when spawned

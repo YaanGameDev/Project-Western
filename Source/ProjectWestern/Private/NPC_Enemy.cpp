@@ -71,9 +71,5 @@ void ANPC_Enemy::ViewportDeathHUD()
 void ANPC_Enemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	FVector CurrentLocation = GetActorLocation();
-	CurrentLocation = CurrentLocation + VelocityEnemy * DeltaTime;
-	SetActorLocation(CurrentLocation);
 }
 

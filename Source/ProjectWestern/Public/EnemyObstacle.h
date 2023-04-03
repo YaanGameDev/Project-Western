@@ -4,12 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "HostileEntity.h"
 #include "EnemyObstacle.generated.h"
 
 class AMainGameModeBase;
 class ACharacterRunner;
+
 UCLASS()
-class PROJECTWESTERN_API AEnemyObstacle : public AActor
+class PROJECTWESTERN_API AEnemyObstacle : public AHostileEntity
 {
 	GENERATED_BODY()
 	
@@ -41,6 +43,4 @@ protected:
 
 	void ViewportDeathHUD();
 
-	UPROPERTY(EditAnywhere, Category = "VelocityObstacle")
-		FVector VelocityObstacle = { 0,0,0 };
 };
