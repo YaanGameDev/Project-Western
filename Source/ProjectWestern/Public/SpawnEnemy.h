@@ -8,6 +8,7 @@
 
 class ANPC_Enemy;
 class AEnemyObstacle;
+class AHostileEntity;
 
 UCLASS()
 class PROJECTWESTERN_API ASpawnEnemy : public AActor
@@ -29,29 +30,22 @@ protected:
 	UPROPERTY(EditAnywhere)
 		class UBoxComponent* SpawnEnemyLocation;
 
-	//Spawn Actor (Enemy - NPC)
-	UPROPERTY()
-	ANPC_Enemy* NPCEnemy;
+	// Spawn Actor ( Enemy - Obstacle )
 
-	UPROPERTY(EditAnywhere, Category = "SpawnEnemy")
-		TSubclassOf<ANPC_Enemy>SpawnNPC;
-
-	//Spawn Actor ( Enemy - Obstacle )
-
-	UPROPERTY()
 	AEnemyObstacle* Obstacle;
 
 	UPROPERTY(EditAnywhere, Category = "SpawnEnemy")
-		TSubclassOf<AEnemyObstacle> SpawnObstacle;
+		TSubclassOf<AHostileEntity> SpawnEnemy;
 
 	UFUNCTION()
 		void ObstacleEnemyLocation();
 
-	UPROPERTY(EditAnywhere)
-		float Spawn1 = 0;
+	// Variable for rand range
 
-	UPROPERTY(EditAnywherE)
-		float Spawn2 = 0;
-	//Test
-	void SpawnEntity();	
+	UPROPERTY(EditAnywhere)
+		float minSpawnTime = 1;
+
+	UPROPERTY(EditAnywhere)
+		float maxSpawnTime = 5;
+
 };

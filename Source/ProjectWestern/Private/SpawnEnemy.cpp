@@ -3,10 +3,8 @@
 //Engine
 #include "Math/UnrealMathUtility.h"
 #include "Components/BoxComponent.h"
-#include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
-#include "Engine/TargetPoint.h"
 #include "GameFramework/Actor.h"
 
 
@@ -30,36 +28,30 @@ void ASpawnEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FTimerHandle SpawnRandom;
-	GetWorldTimerManager().SetTimer(SpawnRandom, this, &ASpawnEnemy::SpawnEntity, 10, false);
+	FTimerHandle RandomSpawn;
+	GetWorldTimerManager().SetTimer(RandomSpawn, this, &ASpawnEnemy::ObstacleEnemyLocation, FMath::RandRange(minSpawnTime, maxSpawnTime), false);
 }
 
 void ASpawnEnemy::ObstacleEnemyLocation()
 {
 	TArray<AActor*> LocalObstacle;
 
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), SpawnObstacle, LocalObstacle);
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), SpawnEnemy, LocalObstacle);
 
-	if (LocalObstacle.IsEmpty())
+	if (LocalObstacle.Num() < 3)
 	{
 		FActorSpawnParameters ObstacleSpawnParameters = FActorSpawnParameters();
 
-		GetWorld()->SpawnActor<AEnemyObstacle>(SpawnObstacle, GetActorLocation(), GetActorRotation(), ObstacleSpawnParameters);
+		GetWorld()->SpawnActor<AActor>(SpawnEnemy, GetActorLocation(), GetActorRotation(), ObstacleSpawnParameters);
 
-		FTimerHandle NewSpawnRandom;
-		GetWorldTimerManager().SetTimer(NewSpawnRandom, this, &ASpawnEnemy::SpawnEntity, FMath::RandRange(Spawn1,Spawn2), false);
+		FTimerHandle TimerRandomSpawn;
+		GetWorldTimerManager().SetTimer(TimerRandomSpawn, this, &ASpawnEnemy::ObstacleEnemyLocation, FMath::RandRange(minSpawnTime, maxSpawnTime), false);
 	}
-}
-
-void ASpawnEnemy::SpawnEntity()
-{
 }
 
 // Called every frame
 void ASpawnEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	ObstacleEnemyLocation();
 }
 
