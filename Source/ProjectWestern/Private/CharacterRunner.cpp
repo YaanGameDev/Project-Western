@@ -6,6 +6,7 @@
 //Engine
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 //Project
 #include "Weapon.h"
@@ -27,6 +28,11 @@ ACharacterRunner::ACharacterRunner()
 
 }
 
+void ACharacterRunner::AddCoin()
+{
+	GameMode->AddCoin();
+}
+
 // Called when the game starts or when spawned
 void ACharacterRunner::BeginPlay()
 {
@@ -36,6 +42,10 @@ void ACharacterRunner::BeginPlay()
 	Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass.LoadSynchronous(), FTransform(), Parameters);
 	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_pickup"));
+
+	GameMode = Cast<AMainGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+
+	check(GameMode);
 }
 
 void ACharacterRunner::FireProjectile()
@@ -60,7 +70,6 @@ void ACharacterRunner::ShootingTrue()
 void ACharacterRunner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//RunAutomatic();
 
 }
 
@@ -71,11 +80,6 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterRunner::PlayerJump);
 	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterRunner::ShootingTrue);
 	InputComponent->BindAction("Fire", IE_Released, this, & ACharacterRunner::FireProjectile);
-}
-
-void ACharacterRunner::RunAutomatic()
-{
-	AddMovementInput(GetActorForwardVector() * RunSpeedPlayer);
 }
 
 void ACharacterRunner::PlayerJump()
