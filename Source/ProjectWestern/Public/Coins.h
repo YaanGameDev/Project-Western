@@ -7,7 +7,6 @@
 #include "Coins.generated.h"
 
 class ACharacterRunner;
-class APlayerTest;
 
 UCLASS()
 class PROJECTWESTERN_API ACoins : public AActor
@@ -28,15 +27,15 @@ protected:
 	UPROPERTY(EditAnywhere)
 		class USphereComponent* CollisionCoins;
 
+	UPROPERTY(EditAnywhere)
+		class UStaticMeshComponent* CoinsMesh;
+
 	UFUNCTION()
 		void BeginCollisionCoins(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	bool Collided;
+	
 
 private:
 	UPROPERTY()
 	ACharacterRunner* Character;
-
-	UPROPERTY()
-	APlayerTest* PlayerTest;
 };

@@ -51,5 +51,10 @@ void ASettingsCoin::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FVector CurrentLocation = GetActorLocation();
+
+	CurrentLocation = CurrentLocation + Velocity * DeltaTime;
+
+	SetActorLocation(CurrentLocation);
 }
 

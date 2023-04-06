@@ -37,5 +37,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Coins")
 		TSubclassOf<ACoins>SpawnCoins;
 
+	UPROPERTY(EditAnywhere, Category = "Velocity Coins")
+		FVector Velocity = { 0,0,0 };
 
 };

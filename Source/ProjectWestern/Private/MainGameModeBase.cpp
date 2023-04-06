@@ -1,10 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "MainGameModeBase.h"
+
+//Engine
 #include "UnrealWidgetFwd.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GamePlayStatics.h"
+
+//Project
+#include "InGameBaseWidget.h"
 
 void AMainGameModeBase::BeginPlay()
 {
@@ -32,7 +34,7 @@ void AMainGameModeBase::ApplyHUDChanges()
 		}
 		case EHUDState::HUD_InGame:
 		{
-			ApplyHUD(InGameHUDClass, false, false);
+			ApplyHUD(InGameHUDClass, true, true);
 			break;
 		}
 		case EHUDState::HUD_PauseGame:
@@ -88,6 +90,7 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 
 		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), WidgetToApply);
 
+
 		if (CurrentWidget != nullptr)
 		{
 			CurrentWidget->AddToViewport();
@@ -96,4 +99,17 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 		return false;
 	}
 	 return	false;
+}
+
+void AMainGameModeBase::AddCoin()
+{
+	TotalCoins += 1;
+
+	auto* InGameWidget = Cast<UInGameBaseWidget>(CurrentWidget);
+	if (IsValid(InGameWidget))
+	{
+		InGameWidget->SetCoinsCount(TotalCoins);
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Total Coins: %d"), TotalCoins);
 }

@@ -14,8 +14,12 @@ ACoins::ACoins()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	CoinsMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("MeshCoins"));
+	RootComponent = CoinsMesh;
+
+
 	CollisionCoins = CreateDefaultSubobject<USphereComponent>(FName("CollisionCoins"));
-	RootComponent = CollisionCoins;
+	CollisionCoins->SetupAttachment(CoinsMesh);
 
 	CollisionCoins->OnComponentBeginOverlap.AddDynamic(this, &ACoins::BeginCollisionCoins);
 }
@@ -24,15 +28,16 @@ ACoins::ACoins()
 void ACoins::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 void ACoins::BeginCollisionCoins(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	PlayerTest = Cast<APlayerTest>(UGameplayStatics::GetPlayerCharacter(this, 0));
-	if (IsValid(PlayerTest))
+	Character = Cast<ACharacterRunner>(OtherActor);
+	if (Character)
 	{
-	
+		Character->AddCoin();
+		this->Destroy();
 	}
 }
 
@@ -40,5 +45,7 @@ void ACoins::BeginCollisionCoins(UPrimitiveComponent* OverlappedComponent, AActo
 void ACoins::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	
 
 }
