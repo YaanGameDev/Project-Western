@@ -4,11 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Coins.h"
 #include "SettingsCoin.generated.h"
 
+class ACoins;
+
 UCLASS()
-class PROJECTWESTERN_API ASettingsCoin : public ACoins
+class PROJECTWESTERN_API ASettingsCoin : public AActor
 {
 	GENERATED_BODY()
 	
@@ -18,6 +19,7 @@ public:
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
 
 protected:
 	// Called when the game starts or when spawned
@@ -37,7 +39,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Coins")
 		TSubclassOf<ACoins>SpawnCoins;
 
-	UPROPERTY(EditAnywhere, Category = "Velocity Coins")
-		FVector Velocity = { 0,0,0 };
+	UPROPERTY(EditAnywhere)
+		class USphereComponent* SpawnCoinsLocation;
 
 };

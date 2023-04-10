@@ -5,6 +5,7 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "Math/UnrealMathUtility.h"
+#include "Components/SphereComponent.h"
 
 
 //Project
@@ -17,6 +18,8 @@ ASettingsCoin::ASettingsCoin()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	SpawnCoinsLocation = CreateDefaultSubobject<USphereComponent>(FName("SpawnCoinsLocation"));
+	SpawnCoinsLocation->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -26,7 +29,6 @@ void ASettingsCoin::BeginPlay()
 
 	FTimerHandle TimerStartCoins;
 	GetWorldTimerManager().SetTimer(TimerStartCoins, this, &ASettingsCoin::FunctionSpawnCoins, FMath::RandRange(minTimeSpawn, maxTimeSpawn), false);
-	
 }
 
 void ASettingsCoin::FunctionSpawnCoins()
@@ -50,11 +52,5 @@ void ASettingsCoin::FunctionSpawnCoins()
 void ASettingsCoin::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	FVector CurrentLocation = GetActorLocation();
-
-	CurrentLocation = CurrentLocation + Velocity * DeltaTime;
-
-	SetActorLocation(CurrentLocation);
 }
 
