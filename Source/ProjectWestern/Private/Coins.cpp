@@ -6,7 +6,6 @@
 
 //Project
 #include "CharacterRunner.h"
-#include "PlayerTest.h"
 
 // Sets default values
 ACoins::ACoins()
