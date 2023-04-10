@@ -8,6 +8,8 @@
 
 #include "MainGameModeBase.generated.h"
 
+class UUserWidget;
+
 UENUM(BlueprintType)
 enum class EHUDState : uint8
 {
@@ -49,6 +51,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 		int32 TotalCoins = 0;
+
 
 protected:
 	EHUDState HUDState;
