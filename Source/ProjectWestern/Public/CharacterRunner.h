@@ -23,31 +23,40 @@ public:
 	//Calling Actors
 	UPROPERTY()
 	ACharacterRunner* CharacterRunner;
+
 	UPROPERTY()
-	AWeapon* Weapon;
-	AMainGameModeBase* GameMode;
+		AWeapon* Weapon;
 
-	//Player Run
-	void RunAutomatic();
-	float RunSpeedPlayer = 50;
+	UPROPERTY()
+		AMainGameModeBase* GameMode;
 
+	//Code for Coins Collect
+	UFUNCTION()
+		void AddCoin();
+
+	UPROPERTY(VisibleAnywhere)
+		int32 TotalCoins = 0;
+
+	//End Code for Coins Collect
+	
+	//----------
+	// ---------
+	// --------
+	
 	//Player Jump
 	void PlayerJump();
 	UPROPERTY(EditDefaultsOnly, Category = "SettingJumpVelocity");
 	float JumpVelocity = 0;
 
+
 	virtual void Tick(float DeltaTime) override;
 
-
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
-		TSoftClassPtr<class AWeapon> WeaponClass;
-
+	//Components Character
 	UPROPERTY(EditAnywhere)
 		class UCameraComponent* CameraPlayer;
 	
@@ -59,5 +68,8 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 		bool IsShooting;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+		TSoftClassPtr<class AWeapon> WeaponClass;
 
 };

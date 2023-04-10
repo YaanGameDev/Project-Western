@@ -38,14 +38,14 @@ void ASpawnEnemy::ObstacleEnemyLocation()
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), SpawnEnemy, LocalObstacle);
 
-	if (LocalObstacle.Num() < 3)
+	if (LocalObstacle.Num() < 6)
 	{
 		FActorSpawnParameters ObstacleSpawnParameters = FActorSpawnParameters();
 
 		GetWorld()->SpawnActor<AActor>(SpawnEnemy, GetActorLocation(), GetActorRotation(), ObstacleSpawnParameters);
 
 		FTimerHandle TimerRandomSpawn;
-		GetWorldTimerManager().SetTimer(TimerRandomSpawn, this, &ASpawnEnemy::ObstacleEnemyLocation, FMath::RandRange(minSpawnTime, maxSpawnTime), false);
+		GetWorldTimerManager().SetTimer(TimerRandomSpawn, this, &ASpawnEnemy::ObstacleEnemyLocation, FMath::RandRange(minSpawnTime, maxSpawnTime), true);
 	}
 }
 

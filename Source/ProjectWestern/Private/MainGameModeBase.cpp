@@ -110,6 +110,4 @@ void AMainGameModeBase::AddCoin()
 	{
 		InGameWidget->SetCoinsCount(TotalCoins);
 	}
-
-	UE_LOG(LogTemp, Warning, TEXT("Total Coins: %d"), TotalCoins);
 }
