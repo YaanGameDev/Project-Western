@@ -7,6 +7,7 @@
 #include "WallDestroyActors.generated.h"
 
 class AEnemyObstacle;
+class ACoins;
 
 UCLASS()
 class PROJECTWESTERN_API AWallDestroyActors : public AActor
@@ -20,6 +21,9 @@ public:
 	UPROPERTY()
 	AEnemyObstacle* Obstacle;
 
+	UPROPERTY()
+	ACoins* Coins;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -29,9 +33,7 @@ protected:
 		class UBoxComponent* WallDestroyActors;
 
 	UFUNCTION()
-		void BeginCollisionWall(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
-
-	bool Collided;
+		void BeginCollisionWall(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 };
 
