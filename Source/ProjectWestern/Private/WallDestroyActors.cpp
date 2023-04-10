@@ -8,6 +8,7 @@
 
 //Project
 #include "EnemyObstacle.h"
+#include "Coins.h"
 
 
 // Sets default values
@@ -30,13 +31,14 @@ void AWallDestroyActors::BeginPlay()
 void AWallDestroyActors::BeginCollisionWall(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	Obstacle = Cast<AEnemyObstacle>(OtherActor);
+	Coins = Cast<ACoins>(OtherActor);
 	if (IsValid(Obstacle))
 	{
-		Collided = true;
-		if (Collided == true)
-		{
-			Obstacle->Destroy();
-		}
+		Obstacle->Destroy();
+	}
+	else if (IsValid(Coins))
+	{
+		Coins->Destroy();
 	}
 }
 

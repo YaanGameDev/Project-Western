@@ -44,6 +44,12 @@ public:
 	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents);
 
 
+	UFUNCTION(BlueprintCallable)
+		void AddCoin();
+
+	UPROPERTY(VisibleAnywhere)
+		int32 TotalCoins = 0;
+
 protected:
 	EHUDState HUDState;
 
