@@ -9,6 +9,7 @@
 #include "MainGameModeBase.generated.h"
 
 class UUserWidget;
+class AHostileEntity;
 
 UENUM(BlueprintType)
 enum class EHUDState : uint8
@@ -33,8 +34,6 @@ class PROJECTWESTERN_API AMainGameModeBase : public AGameModeBase
 public:
 	AMainGameModeBase();
 
-	
-
 	void ApplyHUDChanges();
 
 	EHUDState GetHUDState();
@@ -52,6 +51,19 @@ public:
 	UPROPERTY(VisibleAnywhere)
 		int32 TotalCoins = 0;
 
+
+	//UpdateDifficulty
+	UFUNCTION()
+		void UpdateDifficulty();
+
+	UPROPERTY(EditDefaultsOnly)
+		double DifficultyCoeficion = 0.2;
+
+	double GetCurrentDificulty();
+
+	double CurrentDifficultyFactor = 1;
+
+	static AMainGameModeBase* GetGameMode(UObject* WorldObject);
 
 protected:
 	EHUDState HUDState;

@@ -7,6 +7,7 @@
 
 //Project
 #include "InGameBaseWidget.h"
+#include "EnemyObstacle.h"
 
 void AMainGameModeBase::BeginPlay()
 {
@@ -110,4 +111,23 @@ void AMainGameModeBase::AddCoin()
 	{
 		InGameWidget->SetCoinsCount(TotalCoins);
 	}
+	UpdateDifficulty();
+}
+
+void AMainGameModeBase::UpdateDifficulty()
+{
+	if (TotalCoins % 50 == 0)
+	{
+		CurrentDificultyFactor = GetCurrentDificulty();
+	}
+}
+
+double AMainGameModeBase::GetCurrentDificulty()
+{
+	return TotalCoins * DifficultyCoeficion + 1;
+}
+
+AMainGameModeBase* AMainGameModeBase::GetGameMode(UObject* WorldObject)
+{
+	return WorldObject->GetWorld()->GetAuthGameMode<AMainGameModeBase>();
 }

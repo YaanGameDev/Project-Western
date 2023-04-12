@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "HostileEntity.generated.h"
 
+class AMainGameModeBase;
+
 UCLASS()
 class PROJECTWESTERN_API AHostileEntity : public AActor
 {
@@ -18,11 +20,12 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, Category = "VelocityEnemy")
+		FVector Velocity = { 0,0,0 };
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = "VelocityEnemy")
-		FVector Velocity = { 0,0,0 };
-
+	AMainGameModeBase* GameMode;
 };

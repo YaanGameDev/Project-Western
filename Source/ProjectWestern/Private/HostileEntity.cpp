@@ -3,6 +3,8 @@
 
 #include "HostileEntity.h"
 
+#include "MainGameModeBase.h"
+
 // Sets default values
 AHostileEntity::AHostileEntity()
 {
@@ -15,7 +17,7 @@ AHostileEntity::AHostileEntity()
 void AHostileEntity::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	GameMode = AMainGameModeBase::GetGameMode(this);
 }
 
 void AHostileEntity::Tick(float DeltaTime)
@@ -23,7 +25,8 @@ void AHostileEntity::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	FVector CurrentLocation = GetActorLocation();
-	CurrentLocation = CurrentLocation + Velocity * DeltaTime;
+	CurrentLocation = CurrentLocation + (Velocity * GameMode->CurrentDifficultyFactor) * DeltaTime;
 	SetActorLocation(CurrentLocation);
+
 }
 
