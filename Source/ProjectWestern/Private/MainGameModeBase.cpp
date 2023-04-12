@@ -118,7 +118,7 @@ void AMainGameModeBase::UpdateDifficulty()
 {
 	if (TotalCoins % 50 == 0)
 	{
-		CurrentDificultyFactor = GetCurrentDificulty();
+		CurrentDifficultyFactor = GetCurrentDificulty();
 	}
 }
 
