@@ -10,7 +10,6 @@
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
 				"Engine",
-				"UMGEditor",
 				"UMG"
 			]
 		}
@@ -31,5 +30,8 @@
 				"Win64"
 			]
 		}
+	],
+	"TargetPlatforms": [
+		"Windows"
 	]
 }

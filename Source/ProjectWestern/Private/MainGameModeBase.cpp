@@ -1,7 +1,6 @@
 #include "MainGameModeBase.h"
 
 //Engine
-#include "UnrealWidgetFwd.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GamePlayStatics.h"
 
@@ -104,7 +103,7 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 
 void AMainGameModeBase::AddCoin()
 {
-	TotalCoins += 1;
+	TotalCoins += 10;
 
 	auto* InGameWidget = Cast<UInGameBaseWidget>(CurrentWidget);
 	if (IsValid(InGameWidget))
