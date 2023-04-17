@@ -34,14 +34,14 @@ public:
 	UFUNCTION()
 		void AddCoin();
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		int32 TotalCoins = 0;
 
 	//End Code for Coins Collect
 	
-	//----------
-	// ---------
-	// --------
+	//Player Death
+	UFUNCTION(BlueprintNativeEvent)
+	void DeathFunction();
 	
 	//Player Jump
 	void PlayerJump();

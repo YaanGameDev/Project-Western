@@ -39,7 +39,7 @@ void AEnemyObstacle::BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent
 	CharacterRunner = Cast<ACharacterRunner>(OtherActor);
 	if (IsValid(CharacterRunner))
 	{
-		CharacterRunner->Destroy(true);
+		CharacterRunner->DeathFunction();
 		ViewportDeathHUD();
 	}
 }
