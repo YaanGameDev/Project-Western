@@ -10,46 +10,41 @@
 
 void AMainGameModeBase::BeginPlay()
 {
-	ApplyHUDChanges();
+
 }
 
 AMainGameModeBase::AMainGameModeBase()
 {
-	HUDState = EHUDState::HUD_MainMenu;
+
 }
 
 void AMainGameModeBase::ApplyHUDChanges()
 {
-	if (IsValid(CurrentWidget))
-	{	
-		CurrentWidget->RemoveFromParent();
-	}
-
 	switch (HUDState)
 	{
 		case EHUDState::HUD_MainMenu:
 		{
-			ApplyHUD(MainMenuHUDClass, true, true);
+			ApplyHUD(MainMenuHUDClass);
 			break;
 		}
 		case EHUDState::HUD_InGame:
 		{
-			ApplyHUD(InGameHUDClass, true, true);
+			ApplyHUD(InGameHUDClass);
 			break;
 		}
 		case EHUDState::HUD_PauseGame:
 		{
-			ApplyHUD(PauseGameHUDClass, true, true);
+			ApplyHUD(PauseGameHUDClass);
 			break;
 		}
 		case EHUDState::HUD_Death:
 		{
-			ApplyHUD(DeathHUDClass, true, true);
+			ApplyHUD(DeathHUDClass);
 			break;
 		}
 			default:
 			{
-				ApplyHUD(MainMenuHUDClass, true, true);
+				ApplyHUD(MainMenuHUDClass);
 					break;
 			}
 	}
@@ -74,22 +69,24 @@ void AMainGameModeBase::ChangeHUDState(EHUDState newState)
 	}
 	else
 	{
-		FInputModeUIOnly UIOnly;
-		MyController->SetInputMode(UIOnly);
+		FInputModeGameAndUI GameAndUI;
+		MyController->SetInputMode(GameAndUI);
 	}
 }
 
-bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents)
+bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply)
 {
 	APlayerController* MyController = GetWorld()->GetFirstPlayerController();
 
 	if (WidgetToApply != nullptr)
 	{
-		MyController->bShowMouseCursor = bShowMouseCursor;
-		MyController->bEnableClickEvents = EnableClickEvents;
-
+		if (IsValid(CurrentWidget))
+		{
+			CurrentWidget->RemoveFromParent();
+			CurrentWidget->RemoveFromViewport();
+		
+		}
 		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), WidgetToApply);
-
 
 		if (CurrentWidget != nullptr)
 		{
@@ -117,11 +114,11 @@ void AMainGameModeBase::UpdateDifficulty()
 {
 	if (TotalCoins % 50 == 0)
 	{
-		CurrentDifficultyFactor = GetCurrentDificulty();
+		CurrentDifficultyFactor = GetCurrentDifficulty();
 	}
 }
 
-double AMainGameModeBase::GetCurrentDificulty()
+double AMainGameModeBase::GetCurrentDifficulty()
 {
 	return TotalCoins * DifficultyCoeficion + 1;
 }

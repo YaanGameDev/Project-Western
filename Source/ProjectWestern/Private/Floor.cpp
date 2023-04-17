@@ -20,9 +20,6 @@ AFloor::AFloor()
 void AFloor::BeginPlay()
 {
 	Super::BeginPlay();
-
-	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
-	GameMode->ChangeHUDState(EHUDState::HUD_InGame);
 	
 }
 
