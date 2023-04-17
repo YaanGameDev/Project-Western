@@ -42,13 +42,13 @@ public:
 	void ChangeHUDState(EHUDState newState);
 
 
-	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents);
+	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply);
 
 
 	UFUNCTION(BlueprintCallable)
 		void AddCoin();
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		int32 TotalCoins = 0;
 
 
@@ -59,7 +59,7 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 		double DifficultyCoeficion = 0.2;
 
-	double GetCurrentDificulty();
+	double GetCurrentDifficulty();
 
 	double CurrentDifficultyFactor = 1;
 

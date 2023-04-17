@@ -82,6 +82,11 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	InputComponent->BindAction("Fire", IE_Released, this, & ACharacterRunner::FireProjectile);
 }
 
+void ACharacterRunner::DeathFunction_Implementation()
+{
+	GetCharacterMovement()->DisableMovement();
+}
+
 void ACharacterRunner::PlayerJump()
 {
 	GetCharacterMovement()->JumpZVelocity = JumpVelocity;

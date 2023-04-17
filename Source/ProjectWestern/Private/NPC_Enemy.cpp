@@ -56,9 +56,8 @@ void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent
 	ACharacterRunner* CharacterRunner = Cast<ACharacterRunner>(OtherActor);
 	if (IsValid(CharacterRunner))
 	{
-		CharacterRunner->Destroy();
+		CharacterRunner->DeathFunction();
 		ViewportDeathHUD();
-		return;
 	}
 }
 
