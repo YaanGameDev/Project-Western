@@ -10,12 +10,12 @@
 
 void AMainGameModeBase::BeginPlay()
 {
-
+	ApplyHUDChanges();
 }
 
 AMainGameModeBase::AMainGameModeBase()
 {
-
+	HUDState = EHUDState::HUD_MainMenu;
 }
 
 void AMainGameModeBase::ApplyHUDChanges()
@@ -60,18 +60,6 @@ void AMainGameModeBase::ChangeHUDState(EHUDState newState)
 {
 	HUDState = newState;
 	ApplyHUDChanges();
-
-	APlayerController* MyController = GetWorld()->GetFirstPlayerController();
-	if (HUDState == EHUDState::HUD_InGame)
-	{
-		FInputModeGameOnly GameOnly;
-		MyController->SetInputMode(GameOnly);
-	}
-	else
-	{
-		FInputModeGameAndUI GameAndUI;
-		MyController->SetInputMode(GameAndUI);
-	}
 }
 
 bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply)
@@ -83,8 +71,6 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply)
 		if (IsValid(CurrentWidget))
 		{
 			CurrentWidget->RemoveFromParent();
-			CurrentWidget->RemoveFromViewport();
-		
 		}
 		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), WidgetToApply);
 
@@ -100,7 +86,7 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply)
 
 void AMainGameModeBase::AddCoin()
 {
-	TotalCoins += 10;
+	TotalCoins += 1;
 
 	auto* InGameWidget = Cast<UInGameBaseWidget>(CurrentWidget);
 	if (IsValid(InGameWidget))
