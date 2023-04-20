@@ -47,7 +47,7 @@ void AProjectile::BeginCollisionProjectile(UPrimitiveComponent* OverlappedCompon
 		{
 			if (Enemy)
 			{
-				Enemy->SetHealth(100.f);
+				Enemy->SetHealth(50.f);
 				Enemy->Destroy();
 				this->Destroy();
 			}

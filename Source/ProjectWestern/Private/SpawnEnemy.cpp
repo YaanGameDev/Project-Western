@@ -7,7 +7,6 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 
-
 //Project
 #include "NPC_Enemy.h"
 #include "EnemyObstacle.h"
@@ -38,14 +37,14 @@ void ASpawnEnemy::ObstacleEnemyLocation()
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), SpawnEnemy, LocalObstacle);
 
-	if (LocalObstacle.Num() < 1)
+	if (LocalObstacle.Num() < 4)
 	{
 		FActorSpawnParameters ObstacleSpawnParameters = FActorSpawnParameters();
 
 		GetWorld()->SpawnActor<AActor>(SpawnEnemy, GetActorLocation(), GetActorRotation(), ObstacleSpawnParameters);
 
 		FTimerHandle TimerRandomSpawn;
-		GetWorldTimerManager().SetTimer(TimerRandomSpawn, this, &ASpawnEnemy::ObstacleEnemyLocation, FMath::RandRange(minSpawnTime, maxSpawnTime), true);
+		GetWorldTimerManager().SetTimer(TimerRandomSpawn, this, &ASpawnEnemy::ObstacleEnemyLocation, FMath::RandRange(minSpawnTime, maxSpawnTime), false);
 	}
 }
 
