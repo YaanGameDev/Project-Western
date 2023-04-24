@@ -86,7 +86,7 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply)
 
 void AMainGameModeBase::AddCoin()
 {
-	TotalCoins += 1;
+	TotalCoins += 10;
 
 	auto* InGameWidget = Cast<UInGameBaseWidget>(CurrentWidget);
 	if (IsValid(InGameWidget))

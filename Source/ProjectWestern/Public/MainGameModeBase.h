@@ -57,11 +57,11 @@ public:
 		void UpdateDifficulty();
 
 	UPROPERTY(EditDefaultsOnly)
-		double DifficultyCoeficion = 0.2;
+	double DifficultyCoeficion = 0.2;
 
 	double GetCurrentDifficulty();
 
-	double CurrentDifficultyFactor = 1;
+	double CurrentDifficultyFactor = 5;
 
 	static AMainGameModeBase* GetGameMode(UObject* WorldObject);
 

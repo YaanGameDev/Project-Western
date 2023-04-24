@@ -45,7 +45,8 @@ public:
 	
 	//Player Jump
 	void PlayerJump();
-	UPROPERTY(EditDefaultsOnly, Category = "SettingJumpVelocity");
+
+	UPROPERTY(EditDefaultsOnly, Category = "SettingJumpVelocity")
 	float JumpVelocity = 0;
 
 
