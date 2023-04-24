@@ -7,6 +7,7 @@
 //Project
 #include "InGameBaseWidget.h"
 #include "EnemyObstacle.h"
+#include "CharacterRunner.h"
 
 void AMainGameModeBase::BeginPlay()
 {
@@ -24,27 +25,27 @@ void AMainGameModeBase::ApplyHUDChanges()
 	{
 		case EHUDState::HUD_MainMenu:
 		{
-			ApplyHUD(MainMenuHUDClass);
+			ApplyHUD(MainMenuHUDClass, false, false);
 			break;
 		}
 		case EHUDState::HUD_InGame:
 		{
-			ApplyHUD(InGameHUDClass);
+			ApplyHUD(InGameHUDClass, false, false);
 			break;
 		}
 		case EHUDState::HUD_PauseGame:
 		{
-			ApplyHUD(PauseGameHUDClass);
+			ApplyHUD(PauseGameHUDClass, false, false);
 			break;
 		}
 		case EHUDState::HUD_Death:
 		{
-			ApplyHUD(DeathHUDClass);
+			ApplyHUD(DeathHUDClass, true, true);
 			break;
 		}
 			default:
 			{
-				ApplyHUD(MainMenuHUDClass);
+				ApplyHUD(MainMenuHUDClass, false, false);
 					break;
 			}
 	}
@@ -62,7 +63,7 @@ void AMainGameModeBase::ChangeHUDState(EHUDState newState)
 	ApplyHUDChanges();
 }
 
-bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply)
+bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents)
 {
 	APlayerController* MyController = GetWorld()->GetFirstPlayerController();
 
@@ -70,6 +71,9 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply)
 	{
 		if (IsValid(CurrentWidget))
 		{
+			MyController->bShowMouseCursor = bShowMouseCursor;
+			MyController->bEnableClickEvents = EnableClickEvents;
+
 			CurrentWidget->RemoveFromParent();
 		}
 		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), WidgetToApply);
@@ -86,7 +90,7 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply)
 
 void AMainGameModeBase::AddCoin()
 {
-	TotalCoins += 10;
+	TotalCoins += 1;
 
 	auto* InGameWidget = Cast<UInGameBaseWidget>(CurrentWidget);
 	if (IsValid(InGameWidget))
@@ -113,3 +117,5 @@ AMainGameModeBase* AMainGameModeBase::GetGameMode(UObject* WorldObject)
 {
 	return WorldObject->GetWorld()->GetAuthGameMode<AMainGameModeBase>();
 }
+
+

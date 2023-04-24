@@ -42,7 +42,7 @@ public:
 	void ChangeHUDState(EHUDState newState);
 
 
-	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply);
+	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents);
 
 
 	UFUNCTION(BlueprintCallable)
@@ -50,7 +50,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		int32 TotalCoins = 0;
-
 
 	//UpdateDifficulty
 	UFUNCTION()
@@ -61,7 +60,7 @@ public:
 
 	double GetCurrentDifficulty();
 
-	double CurrentDifficultyFactor = 5;
+	double CurrentDifficultyFactor = 1;
 
 	static AMainGameModeBase* GetGameMode(UObject* WorldObject);
 
@@ -83,4 +82,5 @@ protected:
 
 	UPROPERTY()
 	UUserWidget* CurrentWidget;
+	
 };
