@@ -43,6 +43,16 @@ void AMainGameModeBase::ApplyHUDChanges()
 			ApplyHUD(DeathHUDClass, true, true);
 			break;
 		}
+		case EHUDState::HUD_Credits:
+		{
+			ApplyHUD(CreditsHUDClass, true, true);
+			break;
+		}
+		case EHUDState::HUD_Shop:
+		{
+			ApplyHUD(ShopHUDClass, true, true);
+			break;
+		}
 			default:
 			{
 				ApplyHUD(MainMenuHUDClass, false, false);
