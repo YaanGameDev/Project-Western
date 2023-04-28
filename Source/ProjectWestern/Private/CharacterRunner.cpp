@@ -46,24 +46,45 @@ void ACharacterRunner::BeginPlay()
 	GameMode = Cast<AMainGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 
 	check(GameMode);
+	
 }
 
-void ACharacterRunner::FireProjectile()
+void ACharacterRunner::ShootingFalse()
 {
-	if (IsValid(Weapon))
-	{
-		Weapon->SpawnProjectile({});
-	}
 	IsShooting = false;
 }
 
-void ACharacterRunner::ShootingTrue()
+void ACharacterRunner::PressShooting()
 {
-	if (IsValid(Weapon))
+	if (!IsValid(Weapon))
 	{
 		return;
 	}
 	IsShooting = true;
+
+	if (CanShooting)
+	{
+		FireWeapon();
+		CanShooting = false;
+		GetWorldTimerManager().SetTimer(TimerFireProjectile, this, &ACharacterRunner::FireWeapon, 1, true);
+	}
+	
+}
+
+void ACharacterRunner::FireWeapon()
+{
+	CanShooting = true;
+	if (IsShooting)
+	{
+		if (IsValid(Weapon))
+		{
+			Weapon->SpawnProjectile({});
+		}
+	}
+	else
+	{
+		GetWorldTimerManager().ClearTimer(TimerFireProjectile);
+	}
 }
 
 // Called every frame
@@ -78,8 +99,8 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterRunner::PlayerJump);
-	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterRunner::ShootingTrue);
-	InputComponent->BindAction("Fire", IE_Released, this, & ACharacterRunner::FireProjectile);
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterRunner::PressShooting);
+	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterRunner::ShootingFalse);
 }
 
 void ACharacterRunner::DeathFunction_Implementation()

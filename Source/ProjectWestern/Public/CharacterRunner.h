@@ -63,12 +63,19 @@ protected:
 	
 	
 	//Fire Projectile
-	void FireProjectile();
+	void ShootingFalse();
 
-	void ShootingTrue();
+	void PressShooting();
+
+	void FireWeapon();
+
+
+	FTimerHandle TimerFireProjectile;
 
 	UPROPERTY(BlueprintReadWrite)
-		bool IsShooting;
+	bool IsShooting;
+
+	bool CanShooting = true;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 		TSoftClassPtr<class AWeapon> WeaponClass;

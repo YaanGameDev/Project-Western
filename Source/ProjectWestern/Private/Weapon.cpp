@@ -27,6 +27,7 @@ void AWeapon::SpawnProjectile(const FRotator& projectileRotation)
 
 	Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnProjectile, projectileRotation, ParametersProjectile);
 	Projectile->AttachToActor(this, FAttachmentTransformRules::SnapToTargetIncludingScale, FName(NAME_None));
+
 }
 
 // Called when the game starts or when spawned
