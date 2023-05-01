@@ -47,11 +47,19 @@ public:
 	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents);
 
 
+	//Code for Collect Coins
 	UFUNCTION(BlueprintCallable)
 		void AddCoin();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 		int32 TotalCoins = 0;
+
+	//Code for Kill enemies count
+	UFUNCTION(BlueprintCallable)
+		void AddEnemies();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		int32 TotalEnemies = 0;
 
 	//UpdateDifficulty
 	UFUNCTION()

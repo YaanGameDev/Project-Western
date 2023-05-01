@@ -12,6 +12,7 @@
 #include "Weapon.h"
 #include "CharacterRunner.h"
 #include "NPC_Enemy.h"
+#include "MainGameModeBase.h"
 
 
 // Sets default values
@@ -54,6 +55,12 @@ void AProjectile::BeginCollisionProjectile(UPrimitiveComponent* OverlappedCompon
 		}
 		
 	}
+}
+
+void AProjectile::AddEnemies()
+{
+	AMainGameModeBase* GameMode = Cast<AMainGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	GameMode->AddEnemies();
 }
 
 // Called every frame

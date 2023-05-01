@@ -7,6 +7,8 @@
 #include "Projectile.generated.h"
 
 class ANPC_Enemy;
+class ACharacterRunner;
+class AMainGameModeBase;
 
 UCLASS()
 class PROJECTWESTERN_API AProjectile : public AActor
@@ -22,8 +24,12 @@ public:
 	UPROPERTY(EditAnywhere)
 		float VelocityProjectile = 0;
 
-	UPROPERTY()
-	ANPC_Enemy* Enemy;
+	//Code for kill enemies count
+	UFUNCTION(BlueprintCallable)
+		void AddEnemies();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+		int32 TotalEnemies = 0;
 
 protected:
 	// Called when the game starts or when spawned
@@ -35,7 +41,14 @@ protected:
 	UPROPERTY(EditAnywhere)
 		class USphereComponent* CollisionProjectile;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 		void BeginCollisionProjectile(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
-	
+
+	//Calling actors
+	UPROPERTY()
+		ANPC_Enemy* Enemy;
+
+	UPROPERTY()
+		ACharacterRunner* Character;
+
 };

@@ -1,3 +1,4 @@
+
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
@@ -10,8 +11,8 @@
 
 //Project
 #include "CharacterRunner.h"
-#include "Projectile.h"
 #include "MainGameModeBase.h"
+#include "Projectile.h"
 
 // Sets default values
 ANPC_Enemy::ANPC_Enemy()
@@ -54,10 +55,15 @@ void ANPC_Enemy::BeginPlay()
 void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	ACharacterRunner* CharacterRunner = Cast<ACharacterRunner>(OtherActor);
+	AProjectile* Projectile = Cast<AProjectile>(OtherActor);
 	if (IsValid(CharacterRunner))
 	{
 		CharacterRunner->DeathFunction();
 		ViewportDeathHUD();
+	}
+	else if (IsValid(Projectile))
+	{
+		Projectile->AddEnemies();
 	}
 }
 
