@@ -55,15 +55,10 @@ void ANPC_Enemy::BeginPlay()
 void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	ACharacterRunner* CharacterRunner = Cast<ACharacterRunner>(OtherActor);
-	AProjectile* Projectile = Cast<AProjectile>(OtherActor);
 	if (IsValid(CharacterRunner))
 	{
 		CharacterRunner->DeathFunction();
 		ViewportDeathHUD();
-	}
-	else if (IsValid(Projectile))
-	{
-		Projectile->AddEnemies();
 	}
 }
 
