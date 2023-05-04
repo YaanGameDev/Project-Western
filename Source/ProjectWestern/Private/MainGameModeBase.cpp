@@ -102,12 +102,12 @@ void AMainGameModeBase::AddCoin()
 {
 	TotalCoins += 1;
 
-	auto* InGameWidget = Cast<UInGameBaseWidget>(CurrentWidget);
-	if (IsValid(InGameWidget))
-	{
-		InGameWidget->SetCoinsCount(TotalCoins);
-	}
 	UpdateDifficulty();
+}
+
+void AMainGameModeBase::AddEnemies()
+{
+	TotalEnemies += 1;
 }
 
 void AMainGameModeBase::UpdateDifficulty()
