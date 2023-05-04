@@ -19,7 +19,8 @@ enum class EHUDState : uint8
 	HUD_PauseGame,
 	HUD_Death,
 	HUD_Credits,
-	HUD_Shop
+	HUD_Shop,
+	HUD_Tutorial
 };
 
 /**
@@ -95,6 +96,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
 		TSubclassOf<UUserWidget> ShopHUDClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
+		TSubclassOf<UUserWidget> TutorialHUDClass;
 
 	UPROPERTY()
 	UUserWidget* CurrentWidget;

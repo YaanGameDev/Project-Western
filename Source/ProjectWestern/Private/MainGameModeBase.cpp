@@ -53,6 +53,11 @@ void AMainGameModeBase::ApplyHUDChanges()
 			ApplyHUD(ShopHUDClass, true, true);
 			break;
 		}
+		case EHUDState::HUD_Tutorial:
+		{
+			ApplyHUD(TutorialHUDClass, true, true);
+			break;
+		}
 			default:
 			{
 				ApplyHUD(MainMenuHUDClass, false, false);
