@@ -18,13 +18,13 @@
 ACharacterRunner::ACharacterRunner()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+PrimaryActorTick.bCanEverTick = true;
 
-	CameraPlayer = CreateDefaultSubobject<UCameraComponent>(FName("Camera"));
-	CameraPlayer->SetRelativeLocation(FVector(0.0f, 570.0f, 0.0f));
-	CameraPlayer->SetupAttachment(RootComponent);
+CameraPlayer = CreateDefaultSubobject<UCameraComponent>(FName("Camera"));
+CameraPlayer->SetRelativeLocation(FVector(0.0f, 570.0f, 0.0f));
+CameraPlayer->SetupAttachment(RootComponent);
 
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
+AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 }
 
@@ -38,6 +38,7 @@ void ACharacterRunner::BeginPlay()
 {
 	Super::BeginPlay();
 
+
 	FActorSpawnParameters Parameters;
 	Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass.LoadSynchronous(), FTransform(), Parameters);
@@ -46,12 +47,11 @@ void ACharacterRunner::BeginPlay()
 	GameMode = Cast<AMainGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 
 	check(GameMode);
-	
 }
 
 void ACharacterRunner::ShootingFalse()
 {
-	IsShooting = false;
+	isShooting = false;
 }
 
 void ACharacterRunner::PressShooting()
@@ -60,21 +60,21 @@ void ACharacterRunner::PressShooting()
 	{
 		return;
 	}
-	IsShooting = true;
+	isShooting = true;
 
 	if (CanShooting)
 	{
 		FireWeapon();
 		CanShooting = false;
-		GetWorldTimerManager().SetTimer(TimerFireProjectile, this, &ACharacterRunner::FireWeapon, 1, true);
+		GetWorldTimerManager().SetTimer(TimerFireProjectile, this, &ACharacterRunner::FireWeapon, 1, false);
 	}
-	
+
 }
 
 void ACharacterRunner::FireWeapon()
 {
 	CanShooting = true;
-	if (IsShooting)
+	if (isShooting)
 	{
 		if (IsValid(Weapon))
 		{
@@ -87,11 +87,58 @@ void ACharacterRunner::FireWeapon()
 	}
 }
 
+void ACharacterRunner::SetNewPlayerState(EStateAnimationsPlayer newState)
+{
+	PreviousPlayerState = currentPlayerState;
+	currentPlayerState = newState;
+}
+
+EStateAnimationsPlayer ACharacterRunner::GetPlayerState()
+{
+	return currentPlayerState;
+}
+
+EStateAnimationsPlayer ACharacterRunner::GetPreviousPlayerState()
+{
+	return PreviousPlayerState;
+}
+
 // Called every frame
 void ACharacterRunner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	switch (currentPlayerState)
+	{
+		case EStateAnimationsPlayer::Idle:
+		{
+			if (isShooting)
+			{
+				GetWorldTimerManager().SetTimer(TimerShooting,this, &ACharacterRunner::ShootingFalse, ShootingTimer, false);
+				SetNewPlayerState(EStateAnimationsPlayer::Shooting);
+			}
+			else if(GetCharacterMovement()->GetLastUpdateVelocity().Z > 0)
+			{
+				SetNewPlayerState(EStateAnimationsPlayer::Jumping);
+			}
+			break;
+		}
+		case EStateAnimationsPlayer::Jumping:
+		{
+			 if (!GetCharacterMovement()->IsFalling())
+			{
+				SetNewPlayerState(EStateAnimationsPlayer::Idle);
+			}
+			break;
+		}
+		case EStateAnimationsPlayer::Shooting:
+		{
+			if (!isShooting)
+			{
+				SetNewPlayerState(EStateAnimationsPlayer::Idle);
+			}
+			break;
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -100,12 +147,12 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterRunner::PlayerJump);
 	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterRunner::PressShooting);
-	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterRunner::ShootingFalse);
+	InputComponent->BindAction("Fire", IE_Released, this, &ACharacterRunner::ShootingFalse);
 }
 
 void ACharacterRunner::DeathFunction_Implementation()
 {
-	GetCharacterMovement()->DisableMovement();
+	SetNewPlayerState(EStateAnimationsPlayer::Death);
 }
 
 void ACharacterRunner::PlayerJump()
