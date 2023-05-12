@@ -11,6 +11,15 @@ class AWeapon;
 class AMainGameModeBase;
 class AProjectile;
 
+UENUM(BlueprintType)
+enum class EStateAnimationsPlayer : uint8
+{
+	Idle,
+	Jumping,
+	Shooting,
+	Death
+};
+
 UCLASS()
 class PROJECTWESTERN_API ACharacterRunner : public ACharacter
 {
@@ -70,14 +79,40 @@ protected:
 	void FireWeapon();
 
 
+
 	FTimerHandle TimerFireProjectile;
 
+	//Timer Shooting
+	UPROPERTY(EditDefaultsOnly, Category = "Timer Shooting")
+		float ShootingTimer = 2;
+
+	FTimerHandle TimerShooting;
+
 	UPROPERTY(BlueprintReadWrite)
-	bool IsShooting;
+	bool isShooting;
 
 	bool CanShooting = true;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 		TSoftClassPtr<class AWeapon> WeaponClass;
+
+
+	//State Animations for Player
+	EStateAnimationsPlayer currentPlayerState;
+
+	EStateAnimationsPlayer PreviousPlayerState;
+
+	UFUNCTION(BlueprintCallable)
+		void SetNewPlayerState(EStateAnimationsPlayer newState);
+
+	UFUNCTION(BlueprintPure)
+		EStateAnimationsPlayer GetPlayerState();
+
+	UFUNCTION(BlueprintPure)
+		EStateAnimationsPlayer GetPreviousPlayerState();
+
+
+	
+
 
 };
