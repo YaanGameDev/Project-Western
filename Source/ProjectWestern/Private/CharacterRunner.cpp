@@ -64,9 +64,8 @@ void ACharacterRunner::PressShooting()
 
 	if (CanShooting)
 	{
-		FireWeapon();
+		//FireWeapon();
 		CanShooting = false;
-		GetWorldTimerManager().SetTimer(TimerFireProjectile, this, &ACharacterRunner::FireWeapon, 1, false);
 	}
 
 }
@@ -113,7 +112,6 @@ void ACharacterRunner::Tick(float DeltaTime)
 		{
 			if (isShooting)
 			{
-				GetWorldTimerManager().SetTimer(TimerShooting,this, &ACharacterRunner::ShootingFalse, ShootingTimer, false);
 				SetNewPlayerState(EStateAnimationsPlayer::Shooting);
 			}
 			else if(GetCharacterMovement()->GetLastUpdateVelocity().Z > 0)

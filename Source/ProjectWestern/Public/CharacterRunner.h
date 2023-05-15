@@ -58,6 +58,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "SettingJumpVelocity")
 	float JumpVelocity = 0;
 
+	void FireWeapon();
 
 	virtual void Tick(float DeltaTime) override;
 
@@ -76,17 +77,22 @@ protected:
 
 	void PressShooting();
 
-	void FireWeapon();
-
-
 
 	FTimerHandle TimerFireProjectile;
 
 	//Timer Shooting
-	UPROPERTY(EditDefaultsOnly, Category = "Timer Shooting")
-		float ShootingTimer = 2;
+	UPROPERTY(EditDefaultsOnly, Category = "Timer settings")
+		float ShootingTimer = 0;
 
 	FTimerHandle TimerShooting;
+
+	//Timer spawn projectile
+	FTimerHandle TimerSpawnProjectile;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Timer settings")
+		float SpawnProjectileTimer = 0;
+
+	
 
 	UPROPERTY(BlueprintReadWrite)
 	bool isShooting;
@@ -110,9 +116,4 @@ protected:
 
 	UFUNCTION(BlueprintPure)
 		EStateAnimationsPlayer GetPreviousPlayerState();
-
-
-	
-
-
 };
