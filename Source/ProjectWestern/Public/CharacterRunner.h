@@ -71,14 +71,10 @@ protected:
 	UPROPERTY(EditAnywhere)
 		class UCameraComponent* CameraPlayer;
 	
-	
 	//Fire Projectile
 	void ShootingFalse();
 
 	void PressShooting();
-
-
-	FTimerHandle TimerFireProjectile;
 
 	//Timer Shooting
 	UPROPERTY(EditDefaultsOnly, Category = "Timer settings")
@@ -92,13 +88,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Timer settings")
 		float SpawnProjectileTimer = 0;
 
-	
-
+	//variable booleana for the character firing
 	UPROPERTY(BlueprintReadWrite)
 	bool isShooting;
 
-	bool CanShooting = true;
-
+	//Property for the weapon spawn in character hand
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 		TSoftClassPtr<class AWeapon> WeaponClass;
 

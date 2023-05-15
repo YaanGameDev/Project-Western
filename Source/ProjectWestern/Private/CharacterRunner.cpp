@@ -61,28 +61,16 @@ void ACharacterRunner::PressShooting()
 		return;
 	}
 	isShooting = true;
-
-	if (CanShooting)
-	{
-		//FireWeapon();
-		CanShooting = false;
-	}
-
 }
 
 void ACharacterRunner::FireWeapon()
 {
-	CanShooting = true;
 	if (isShooting)
 	{
 		if (IsValid(Weapon))
 		{
 			Weapon->SpawnProjectile({});
 		}
-	}
-	else
-	{
-		GetWorldTimerManager().ClearTimer(TimerFireProjectile);
 	}
 }
 
