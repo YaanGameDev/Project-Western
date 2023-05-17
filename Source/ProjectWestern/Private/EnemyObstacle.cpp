@@ -40,7 +40,7 @@ void AEnemyObstacle::BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent
 	if (IsValid(CharacterRunner))
 	{
 		CharacterRunner->DeathFunction();
-		ViewportDeathHUD();
+		GetWorldTimerManager().SetTimer(TimerDeathState, this, &AEnemyObstacle::ViewportDeathHUD, DeathStateTimer, false);
 	}
 }
 

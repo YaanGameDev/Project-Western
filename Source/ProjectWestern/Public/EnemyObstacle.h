@@ -43,4 +43,9 @@ protected:
 
 	void ViewportDeathHUD();
 
+	FTimerHandle TimerDeathState;
+
+	UPROPERTY(EditDefaultsOnly, Category = "SettingsTimerDeath")
+		float DeathStateTimer = 2;
+
 };

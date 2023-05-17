@@ -124,6 +124,9 @@ void ACharacterRunner::Tick(float DeltaTime)
 			}
 			break;
 		}
+		case EStateAnimationsPlayer::Death:
+		{
+		}
 	}
 }
 
