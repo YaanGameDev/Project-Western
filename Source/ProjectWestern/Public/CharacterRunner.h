@@ -60,6 +60,9 @@ public:
 
 	void FireWeapon();
 
+	UFUNCTION(BlueprintPure)
+		EStateAnimationsPlayer GetPlayerState();
+
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -104,9 +107,6 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 		void SetNewPlayerState(EStateAnimationsPlayer newState);
-
-	UFUNCTION(BlueprintPure)
-		EStateAnimationsPlayer GetPlayerState();
 
 	UFUNCTION(BlueprintPure)
 		EStateAnimationsPlayer GetPreviousPlayerState();

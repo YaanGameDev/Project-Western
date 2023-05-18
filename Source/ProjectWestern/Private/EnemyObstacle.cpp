@@ -11,6 +11,7 @@
 //ProjectWestern
 #include "CharacterRunner.h"
 #include "MainGameModeBase.h"
+#include "Coins.h"
 
 // Sets default values
 AEnemyObstacle::AEnemyObstacle()
@@ -25,6 +26,7 @@ AEnemyObstacle::AEnemyObstacle()
 	SphereCollisionEnemy->SetupAttachment(MeshEnemy);
 
 	SphereCollisionEnemy->OnComponentBeginOverlap.AddDynamic(this, &AEnemyObstacle::BeginDestroyPlayer);
+
 }
 
 // Called when the game starts or when spawned
@@ -34,10 +36,11 @@ void AEnemyObstacle::BeginPlay()
 	
 }
 
-void AEnemyObstacle::BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult)
+void AEnemyObstacle::BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	CharacterRunner = Cast<ACharacterRunner>(OtherActor);
-	if (IsValid(CharacterRunner))
+	Coins = Cast<ACoins>(OtherActor);
+	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death)
 	{
 		CharacterRunner->DeathFunction();
 		GetWorldTimerManager().SetTimer(TimerDeathState, this, &AEnemyObstacle::ViewportDeathHUD, DeathStateTimer, false);

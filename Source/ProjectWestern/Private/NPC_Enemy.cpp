@@ -55,7 +55,7 @@ void ANPC_Enemy::BeginPlay()
 void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	ACharacterRunner* CharacterRunner = Cast<ACharacterRunner>(OtherActor);
-	if (IsValid(CharacterRunner))
+	if (IsValid(CharacterRunner) && Character->GetPlayerState() != EStateAnimationsPlayer::Death)
 	{
 		CharacterRunner->DeathFunction();
 		ViewportDeathHUD();
