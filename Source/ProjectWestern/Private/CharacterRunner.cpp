@@ -142,6 +142,7 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void ACharacterRunner::DeathFunction_Implementation()
 {
 	SetNewPlayerState(EStateAnimationsPlayer::Death);
+	GetCharacterMovement()->DisableMovement();
 }
 
 void ACharacterRunner::PlayerJump()

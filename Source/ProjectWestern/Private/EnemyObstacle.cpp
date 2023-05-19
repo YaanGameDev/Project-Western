@@ -5,7 +5,7 @@
 
 //Engine
 #include "Components/SphereComponent.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 //ProjectWestern
@@ -19,11 +19,11 @@ AEnemyObstacle::AEnemyObstacle()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	MeshEnemy = CreateDefaultSubobject<UStaticMeshComponent>(FName("MeshEnemy"));
-	MeshEnemy->SetupAttachment(RootComponent);
+	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(FName("MeshEnemy"));
+	SkeletalMesh->SetupAttachment(RootComponent);
 
 	SphereCollisionEnemy = CreateDefaultSubobject<USphereComponent>(FName("SphereCollision"));
-	SphereCollisionEnemy->SetupAttachment(MeshEnemy);
+	SphereCollisionEnemy->SetupAttachment(SkeletalMesh);
 
 	SphereCollisionEnemy->OnComponentBeginOverlap.AddDynamic(this, &AEnemyObstacle::BeginDestroyPlayer);
 
@@ -39,7 +39,6 @@ void AEnemyObstacle::BeginPlay()
 void AEnemyObstacle::BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	CharacterRunner = Cast<ACharacterRunner>(OtherActor);
-	Coins = Cast<ACoins>(OtherActor);
 	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death)
 	{
 		CharacterRunner->DeathFunction();

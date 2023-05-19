@@ -7,8 +7,8 @@
 #include "HostileEntity.h"
 #include "EnemyObstacle.generated.h"
 
-class AMainGameModeBase;
 class ACharacterRunner;
+class AMainGameModeBase;
 
 UCLASS()
 class PROJECTWESTERN_API AEnemyObstacle : public AHostileEntity
@@ -23,7 +23,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	//Calling Actors
+	UPROPERTY()
 	ACharacterRunner* CharacterRunner;
+
+	UPROPERTY()
 	AMainGameModeBase* GameMode;
 
 protected:
@@ -31,7 +34,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
-		class UStaticMeshComponent* MeshEnemy;
+		class USkeletalMeshComponent* SkeletalMesh;
 
 
 	//Collision Destroy Enemy

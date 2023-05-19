@@ -18,7 +18,7 @@ public:
 	AFloor();
 
 	UPROPERTY(EditAnywhere)
-		class UStaticMeshComponent* test;
+		class UStaticMeshComponent* Floor;
 
 	AMainGameModeBase* GameMode;
 
