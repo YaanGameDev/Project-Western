@@ -22,9 +22,12 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Projectile = CreateDefaultSubobject<UStaticMeshComponent>(FName("Projectile"));
+	Projectile->SetRelativeScale3D(FVector(10.f, 10.f, 10.f));
+	Projectile->SetRelativeRotation(FRotator3d(0.0f, 90.f, 0.f));
 	RootComponent = Projectile;
 
 	CollisionProjectile = CreateDefaultSubobject<USphereComponent>(FName("CollisionProjectile"));
+	CollisionProjectile->SetRelativeScale3D(FVector(0.7f, 0.7f, 0.7f));
 	CollisionProjectile->SetupAttachment(Projectile);
 
 	CollisionProjectile->OnComponentBeginOverlap.AddDynamic(this, &AProjectile::BeginCollisionProjectile);
