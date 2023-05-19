@@ -9,6 +9,7 @@
 //Project
 #include "EnemyObstacle.h"
 #include "Coins.h"
+#include "NPC_Enemy.h"
 
 
 // Sets default values
@@ -32,9 +33,14 @@ void AWallDestroyActors::BeginCollisionWall(UPrimitiveComponent* OverlappedCompo
 {
 	Obstacle = Cast<AEnemyObstacle>(OtherActor);
 	Coins = Cast<ACoins>(OtherActor);
+	NPC_Enemy = Cast<ANPC_Enemy>(OtherActor);
 	if (IsValid(Obstacle))
 	{
 		Obstacle->Destroy();
+	}
+	else if (IsValid(NPC_Enemy))
+	{
+		NPC_Enemy->Destroy();
 	}
 	else if (IsValid(Coins))
 	{

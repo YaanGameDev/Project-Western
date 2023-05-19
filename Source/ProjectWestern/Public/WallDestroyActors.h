@@ -8,6 +8,7 @@
 
 class AEnemyObstacle;
 class ACoins;
+class ANPC_Enemy;
 
 UCLASS()
 class PROJECTWESTERN_API AWallDestroyActors : public AActor
@@ -23,6 +24,9 @@ public:
 
 	UPROPERTY()
 	ACoins* Coins;
+
+	UPROPERTY()
+		ANPC_Enemy* NPC_Enemy;
 
 protected:
 	// Called when the game starts or when spawned
