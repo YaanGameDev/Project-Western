@@ -6,7 +6,7 @@
 
 //Engine
 #include "Components/BoxComponent.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 //Project
@@ -19,11 +19,12 @@ ANPC_Enemy::ANPC_Enemy()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("StaticMesh"));
-	RootComponent = StaticMesh;
+	NPC_Enemy = CreateDefaultSubobject<USkeletalMeshComponent>(FName("StaticMesh"));
+	NPC_Enemy->SetRelativeRotation(FRotator3d(0.f, -90.f, 0.f));
+	RootComponent = NPC_Enemy;
 
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(FName("BoxCollision"));
-	BoxCollision->SetupAttachment(StaticMesh);
+	BoxCollision->SetupAttachment(NPC_Enemy);
 
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &ANPC_Enemy::BeginCollisionNPCEnemy);
 
@@ -54,8 +55,8 @@ void ANPC_Enemy::BeginPlay()
 
 void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	ACharacterRunner* CharacterRunner = Cast<ACharacterRunner>(OtherActor);
-	if (IsValid(CharacterRunner) && Character->GetPlayerState() != EStateAnimationsPlayer::Death)
+	CharacterRunner = Cast<ACharacterRunner>(OtherActor);
+	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death)
 	{
 		CharacterRunner->DeathFunction();
 		ViewportDeathHUD();

@@ -7,8 +7,8 @@
 #include "HostileEntity.h"
 #include "NPC_Enemy.generated.h"
 
-class AMainGameModeBase;
 class ACharacterRunner;
+class AMainGameModeBase;
 
 UCLASS()
 class PROJECTWESTERN_API ANPC_Enemy : public AHostileEntity
@@ -17,9 +17,6 @@ class PROJECTWESTERN_API ANPC_Enemy : public AHostileEntity
 	
 public:	
 	ANPC_Enemy();
-
-	//Calling actors
-	AMainGameModeBase* GameMode;
 
 	// Variables for add health in Enemy
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health")
@@ -38,7 +35,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere)
-		class UStaticMeshComponent* StaticMesh;
+		class USkeletalMeshComponent* NPC_Enemy;
 
 	UPROPERTY(EditAnywhere)
 		class UBoxComponent* BoxCollision;
@@ -46,12 +43,14 @@ protected:
 	//Collision Destroy Player
 	UFUNCTION(BlueprintCallable)
 		void BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-
 private:
 	
 	UFUNCTION()
 		void ViewportDeathHUD();
 
 	UPROPERTY()
-		ACharacterRunner* Character;
+		ACharacterRunner* CharacterRunner;
+
+	UPROPERTY()
+		AMainGameModeBase* GameMode;
 };
