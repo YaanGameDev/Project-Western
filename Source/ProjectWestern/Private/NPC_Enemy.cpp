@@ -21,6 +21,7 @@ ANPC_Enemy::ANPC_Enemy()
 
 	NPC_Enemy = CreateDefaultSubobject<USkeletalMeshComponent>(FName("StaticMesh"));
 	NPC_Enemy->SetRelativeRotation(FRotator3d(0.f, -90.f, 0.f));
+	NPC_Enemy->SetRelativeLocation(FVector(0.f, 0.f, -15.f));
 	RootComponent = NPC_Enemy;
 
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>(FName("BoxCollision"));

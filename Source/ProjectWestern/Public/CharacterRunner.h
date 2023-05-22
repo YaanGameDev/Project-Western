@@ -85,12 +85,6 @@ protected:
 
 	FTimerHandle TimerShooting;
 
-	//Timer spawn projectile
-	FTimerHandle TimerSpawnProjectile;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Timer settings")
-		float SpawnProjectileTimer = 0;
-
 	//variable booleana for the character firing
 	UPROPERTY(BlueprintReadWrite)
 	bool isShooting;

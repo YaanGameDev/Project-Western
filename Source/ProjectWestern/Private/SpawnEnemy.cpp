@@ -37,7 +37,7 @@ void ASpawnEnemy::ObstacleEnemyLocation()
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), SpawnEnemy, LocalObstacle);
 
-	if (LocalObstacle.Num() < 4)
+	if (LocalObstacle.Num() < 6)
 	{
 		FActorSpawnParameters ObstacleSpawnParameters = FActorSpawnParameters();
 

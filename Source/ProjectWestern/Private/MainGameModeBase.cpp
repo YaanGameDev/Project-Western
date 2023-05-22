@@ -117,7 +117,7 @@ void AMainGameModeBase::AddEnemies()
 
 void AMainGameModeBase::UpdateDifficulty()
 {
-	if (TotalCoins % 15 == 0)
+	if (TotalCoins % 10 == 0)
 	{
 		CurrentDifficultyFactor = GetCurrentDifficulty();
 	}

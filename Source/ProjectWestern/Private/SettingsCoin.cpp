@@ -37,7 +37,7 @@ void ASettingsCoin::FunctionSpawnCoins()
 
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), SpawnCoins, LocalCoins);
 
-	if (LocalCoins.Num() < 10)
+	if (LocalCoins.Num() < 15)
 	{
 		FActorSpawnParameters CoinsParameters = FActorSpawnParameters();
 

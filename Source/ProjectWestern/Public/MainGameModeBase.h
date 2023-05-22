@@ -67,7 +67,7 @@ public:
 		void UpdateDifficulty();
 
 	UPROPERTY(EditDefaultsOnly)
-	double DifficultyCoeficion = 0.4;
+	double DifficultyCoeficion = 0.2;
 
 	double GetCurrentDifficulty();
 
