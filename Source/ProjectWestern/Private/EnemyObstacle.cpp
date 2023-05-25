@@ -4,7 +4,7 @@
 #include "EnemyObstacle.h"
 
 //Engine
-#include "Components/BoxComponent.h"
+#include "Components/SphereComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -22,10 +22,10 @@ AEnemyObstacle::AEnemyObstacle()
 	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(FName("MeshEnemy"));
 	SkeletalMesh->SetupAttachment(RootComponent);
 
-	BoxCollisionEnemy = CreateDefaultSubobject<UBoxComponent>(FName("BoxCollision"));
-	BoxCollisionEnemy->SetupAttachment(SkeletalMesh);
+	SphereCollisionEnemy = CreateDefaultSubobject<USphereComponent>(FName("SphereCollision"));
+	SphereCollisionEnemy->SetupAttachment(SkeletalMesh);
 
-	BoxCollisionEnemy->OnComponentBeginOverlap.AddDynamic(this, &AEnemyObstacle::BeginDestroyPlayer);
+	SphereCollisionEnemy->OnComponentBeginOverlap.AddDynamic(this, &AEnemyObstacle::BeginDestroyPlayer);
 
 }
 

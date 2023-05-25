@@ -38,8 +38,8 @@ protected:
 
 
 	//Collision Destroy Enemy
-	UPROPERTY()
-		class UBoxComponent* BoxCollisionEnemy;
+	UPROPERTY(EditAnywhere)
+		class USphereComponent* SphereCollisionEnemy;
 
 	UFUNCTION()
 	void BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
