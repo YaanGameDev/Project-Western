@@ -18,7 +18,10 @@ public:
 	// Sets default values for this actor's properties
 	AWeapon();
 
+	UPROPERTY()
 	ACharacterRunner* CharacterRunner;
+
+	UPROPERTY()
 	AProjectile* Projectile;
 
 	UPROPERTY(EditAnywhere)
