@@ -85,6 +85,14 @@ protected:
 
 	FTimerHandle TimerShooting;
 
+	//Timer Death
+	FTimerHandle TimerDeathState;
+
+	UPROPERTY(EditDefaultsOnly, Category = "SettingsTimerDeath")
+		float DeathStateTimer = 2;
+
+	void ViewportDeathHUD();
+
 	//variable booleana for the character firing
 	UPROPERTY(BlueprintReadWrite)
 	bool isShooting;
@@ -92,7 +100,6 @@ protected:
 	//Property for the weapon spawn in character hand
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 		TSoftClassPtr<class AWeapon> WeaponClass;
-
 
 	//State Animations for Player
 	EStateAnimationsPlayer currentPlayerState;

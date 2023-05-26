@@ -141,15 +141,24 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void ACharacterRunner::DeathFunction_Implementation()
 {
+	GetWorldTimerManager().SetTimer(TimerDeathState, this, &ACharacterRunner::ViewportDeathHUD, DeathStateTimer, false);
 	SetNewPlayerState(EStateAnimationsPlayer::Death);
 	GetCharacterMovement()->DisableMovement();
 }
 
 void ACharacterRunner::PlayerJump()
 {
-	GetCharacterMovement()->JumpZVelocity = JumpVelocity;
-	Jump();
+	if (currentPlayerState == EStateAnimationsPlayer::Idle)
+	{
+		GetCharacterMovement()->JumpZVelocity = JumpVelocity;
+		Jump();
+	}
 }
 
+void ACharacterRunner::ViewportDeathHUD()
+{
+	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
+	GameMode->ChangeHUDState(EHUDState::HUD_Death);
+}
 
 

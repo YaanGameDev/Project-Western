@@ -42,14 +42,7 @@ void AEnemyObstacle::BeginDestroyPlayer(UPrimitiveComponent* OverlappedComponent
 	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death)
 	{
 		CharacterRunner->DeathFunction();
-		GetWorldTimerManager().SetTimer(TimerDeathState, this, &AEnemyObstacle::ViewportDeathHUD, DeathStateTimer, false);
 	}
-}
-
-void AEnemyObstacle::ViewportDeathHUD()
-{
-	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
-	GameMode->ChangeHUDState(EHUDState::HUD_Death);
 }
 
 // Called every frame

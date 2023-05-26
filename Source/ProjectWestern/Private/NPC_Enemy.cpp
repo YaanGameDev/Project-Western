@@ -60,14 +60,7 @@ void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent
 	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death)
 	{
 		CharacterRunner->DeathFunction();
-		ViewportDeathHUD();
 	}
-}
-
-void ANPC_Enemy::ViewportDeathHUD()
-{
-	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
-	GameMode->ChangeHUDState(EHUDState::HUD_Death);
 }
 
 void ANPC_Enemy::Tick(float DeltaTime)
