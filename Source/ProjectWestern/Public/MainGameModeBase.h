@@ -73,6 +73,12 @@ public:
 
 	double CurrentDifficultyFactor = 1;
 
+	UPROPERTY(EditDefaultsOnly)
+		int CoinsIncrement = 10;
+
+	UPROPERTY(EditDefaultsOnly)
+		int CoinsValue = 10;
+
 	static AMainGameModeBase* GetGameMode(UObject* WorldObject);
 
 protected:

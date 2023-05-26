@@ -105,7 +105,7 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 
 void AMainGameModeBase::AddCoin()
 {
-	TotalCoins += 1;
+	TotalCoins += CoinsValue;
 
 	UpdateDifficulty();
 }
@@ -117,7 +117,7 @@ void AMainGameModeBase::AddEnemies()
 
 void AMainGameModeBase::UpdateDifficulty()
 {
-	if (TotalCoins % 10 == 0)
+	if (TotalCoins % CoinsIncrement == 0)
 	{
 		CurrentDifficultyFactor = GetCurrentDifficulty();
 	}
