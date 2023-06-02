@@ -5,18 +5,18 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BackgroundElement.h"
-#include "BackGround.generated.h"
+#include "BackGround_02.generated.h"
 
 UCLASS()
-class PROJECTWESTERN_API ABackGround : public ABackgroundElement
+class PROJECTWESTERN_API ABackGround_02 : public ABackgroundElement
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ABackGround();
+	ABackGround_02();
 
-	// Moving Background Map
+	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 protected:

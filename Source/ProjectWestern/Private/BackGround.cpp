@@ -9,7 +9,6 @@
 ABackGround::ABackGround()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -22,8 +21,5 @@ void ABackGround::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector CurrentLocation = GetActorLocation();
-	CurrentLocation = CurrentLocation + VelocityBackground * DeltaTime;
-	SetActorLocation(CurrentLocation);
 }
 
