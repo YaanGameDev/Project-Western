@@ -10,7 +10,6 @@ ABackgroundElement::ABackgroundElement()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -23,18 +22,17 @@ void ABackgroundElement::BeginPlay()
 	StartLocation = GetActorLocation();
 }
 
+void ABackgroundElement::ParametersTeleporting()
+{
+	SetActorLocation(SpawnLocation);
+}
+
 // Called every frame
 void ABackgroundElement::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	FVector CurrentLocation = GetActorLocation() + VelocityBackGround * DeltaTime;
+	CurrentLocation = GetActorLocation() + VelocityBackGround * DeltaTime;
 	SetActorLocation(CurrentLocation);
-
-	if (CurrentLocation.Y < StartLocation.Y - TargetDistance)
-	{
-		SetActorLocation(StartLocation);
-	}
-
 }
 

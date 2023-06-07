@@ -20,6 +20,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+		void ParametersTeleporting();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -30,6 +33,8 @@ protected:
 	FVector SpawnLocation;
 
 	FVector StartLocation;
+
+	FVector CurrentLocation;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		double TargetDistance = 10;
