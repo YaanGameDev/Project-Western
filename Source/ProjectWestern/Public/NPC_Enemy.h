@@ -10,6 +10,13 @@
 class ACharacterRunner;
 class AMainGameModeBase;
 
+UENUM(BlueprintType)
+enum class EStateEnemy : uint8
+{
+	Running,
+	Death
+};
+
 UCLASS()
 class PROJECTWESTERN_API ANPC_Enemy : public AHostileEntity
 {
@@ -18,17 +25,30 @@ class PROJECTWESTERN_API ANPC_Enemy : public AHostileEntity
 public:	
 	ANPC_Enemy();
 
-	// Variables for add health in Enemy
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health")
-		float Health;
-
-	UFUNCTION()
-		void SetHealth(float Dano);
-
-	UFUNCTION()
-		float GetHealth();
-
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+		void DeathFunction();
+
+	UFUNCTION(BlueprintPure)
+		EStateEnemy GetPlayerState();
+
+	//State Animations for Player
+	EStateEnemy currentPlayerState;
+
+	EStateEnemy PreviousPlayerState;
+
+	UFUNCTION(BlueprintCallable)
+		void SetNewPlayerState(EStateEnemy newState);
+
+	UFUNCTION(BlueprintPure)
+		EStateEnemy GetPreviousPlayerState();
+
+	UPROPERTY(EditAnywhere, Category = "Animations")
+		TSubclassOf<UAnimSequence>Animation_Running;
+
+	UPROPERTY(EditAnywhere, Category = "Animations")
+		TSubclassOf<UAnimSequence>Animation_Death;
 
 protected:
 	// Called when the game starts or when spawned

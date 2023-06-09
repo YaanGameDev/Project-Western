@@ -7,6 +7,7 @@
 //Engine
 #include "Components/BoxComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 //Project
@@ -19,33 +20,16 @@ ANPC_Enemy::ANPC_Enemy()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	NPC_Enemy = CreateDefaultSubobject<USkeletalMeshComponent>(FName("StaticMesh"));
+	NPC_Enemy = CreateDefaultSubobject<USkeletalMeshComponent>(FName(TEXT("StaticMesh")));
 	NPC_Enemy->SetRelativeRotation(FRotator3d(0.f, -90.f, 0.f));
 	NPC_Enemy->SetRelativeLocation(FVector(0.f, 0.f, -15.f));
 	RootComponent = NPC_Enemy;
 
-	BoxCollision = CreateDefaultSubobject<UBoxComponent>(FName("BoxCollision"));
+	BoxCollision = CreateDefaultSubobject<UBoxComponent>(FName(TEXT("BoxCollision")));
 	BoxCollision->SetupAttachment(NPC_Enemy);
 
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &ANPC_Enemy::BeginCollisionNPCEnemy);
 
-}
-
-void ANPC_Enemy::SetHealth(float Dano)
-{
-	if (Health >= 0.0f)
-	{
-		Health -= Dano;
-	}
-	else if (Health <= 0.0f)
-	{
-		Destroy();
-	}
-}
-
-float ANPC_Enemy::GetHealth()
-{
-	return Health;
 }
 
 // Called when the game starts or when spawned
@@ -57,7 +41,7 @@ void ANPC_Enemy::BeginPlay()
 void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	CharacterRunner = Cast<ACharacterRunner>(OtherActor);
-	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death)
+	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death && GetPlayerState() != EStateEnemy::Death)
 	{
 		CharacterRunner->DeathFunction();
 	}
@@ -66,5 +50,26 @@ void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent
 void ANPC_Enemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void ANPC_Enemy::DeathFunction()
+{
+	SetNewPlayerState(EStateEnemy::Death);
+}
+
+EStateEnemy ANPC_Enemy::GetPlayerState()
+{
+	return currentPlayerState;
+}
+
+void ANPC_Enemy::SetNewPlayerState(EStateEnemy newState)
+{
+	PreviousPlayerState = currentPlayerState;
+	currentPlayerState = newState;
+}
+
+EStateEnemy ANPC_Enemy::GetPreviousPlayerState()
+{
+	return PreviousPlayerState;
 }
 
