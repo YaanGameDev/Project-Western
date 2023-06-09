@@ -75,15 +75,8 @@ protected:
 		class UCameraComponent* CameraPlayer;
 	
 	//Fire Projectile
-	void ShootingFalse();
 
 	void PressShooting();
-
-	//Timer Shooting
-	UPROPERTY(EditDefaultsOnly, Category = "Timer settings")
-		float ShootingTimer = 0;
-
-	FTimerHandle TimerShooting;
 
 	//Timer Death
 	FTimerHandle TimerDeathState;

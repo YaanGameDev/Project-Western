@@ -49,18 +49,14 @@ void ACharacterRunner::BeginPlay()
 	check(GameMode);
 }
 
-void ACharacterRunner::ShootingFalse()
-{
-	isShooting = false;
-}
-
 void ACharacterRunner::PressShooting()
 {
+	isShooting = true;
 	if (!IsValid(Weapon))
 	{
 		return;
 	}
-	isShooting = true;
+	
 }
 
 void ACharacterRunner::FireWeapon()
@@ -72,6 +68,7 @@ void ACharacterRunner::FireWeapon()
 			Weapon->SpawnProjectile({});
 		}
 	}
+	isShooting = false;
 }
 
 void ACharacterRunner::SetNewPlayerState(EStateAnimationsPlayer newState)
@@ -136,7 +133,6 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacterRunner::PlayerJump);
 	InputComponent->BindAction("Fire", IE_Pressed, this, &ACharacterRunner::PressShooting);
-	InputComponent->BindAction("Fire", IE_Released, this, &ACharacterRunner::ShootingFalse);
 }
 
 void ACharacterRunner::DeathFunction_Implementation()
