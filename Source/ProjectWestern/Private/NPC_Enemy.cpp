@@ -29,7 +29,14 @@ ANPC_Enemy::ANPC_Enemy()
 	BoxCollision->SetupAttachment(NPC_Enemy);
 
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &ANPC_Enemy::BeginCollisionNPCEnemy);
+}
 
+void ANPC_Enemy::DestroyEnemy()
+{
+	if (IsValid(this))
+	{
+		this->Destroy();
+	}
 }
 
 // Called when the game starts or when spawned
@@ -55,6 +62,7 @@ void ANPC_Enemy::Tick(float DeltaTime)
 void ANPC_Enemy::DeathFunction()
 {
 	SetNewPlayerState(EStateEnemy::Death);
+	GetWorldTimerManager().SetTimer(TimerEnemyDestroy, this, &ANPC_Enemy::DestroyEnemy, TimerDestroy, false);
 }
 
 EStateEnemy ANPC_Enemy::GetPlayerState()

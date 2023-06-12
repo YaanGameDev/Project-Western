@@ -37,6 +37,8 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 }
 
 void AProjectile::BeginCollisionProjectile(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -53,7 +55,7 @@ void AProjectile::BeginCollisionProjectile(UPrimitiveComponent* OverlappedCompon
 				AddEnemies();
 				Enemy->DeathFunction();
 				Enemy->SetActorEnableCollision(false);
- 				this->Destroy();
+				this->Destroy();
 			}
 		}
 	}

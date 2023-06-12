@@ -50,6 +50,13 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Animations")
 		TSubclassOf<UAnimSequence>Animation_Death;
 
+	FTimerHandle TimerEnemyDestroy;
+
+	UPROPERTY(EditDefaultsOnly)
+		float TimerDestroy = 0;
+
+	void DestroyEnemy();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
