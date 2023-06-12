@@ -104,4 +104,11 @@ protected:
 
 	UFUNCTION(BlueprintPure)
 		EStateAnimationsPlayer GetPreviousPlayerState();
+
+	void SetGamePaused();
+
+	FTimerHandle TimerPauseGame;
+
+	UPROPERTY(EditDefaultsOnly, Category = "TimerGamePaused");
+	float ValueTimerPauseGame;
 };

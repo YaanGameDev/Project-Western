@@ -155,6 +155,12 @@ void ACharacterRunner::ViewportDeathHUD()
 {
 	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
 	GameMode->ChangeHUDState(EHUDState::HUD_Death);
+	GetWorldTimerManager().SetTimer(TimerPauseGame, this, &ACharacterRunner::SetGamePaused, ValueTimerPauseGame, false);
+}
+
+void ACharacterRunner::SetGamePaused()
+{
+	UGameplayStatics::SetGamePaused(GetWorld(), true);
 }
 
 
