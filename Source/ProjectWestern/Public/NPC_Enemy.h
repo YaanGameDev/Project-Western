@@ -13,7 +13,7 @@ class AMainGameModeBase;
 UENUM(BlueprintType)
 enum class EStateEnemy : uint8
 {
-	Running,
+	Running = 0,
 	Death
 };
 
@@ -28,21 +28,21 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-		void DeathFunction();
+		void EnemyDeathFunction();
 
 	UFUNCTION(BlueprintPure)
-		EStateEnemy GetPlayerState();
+		EStateEnemy GetEnemyState();
 
 	//State Animations for Player
-	EStateEnemy currentPlayerState;
+	EStateEnemy currentEnemyState;
 
-	EStateEnemy PreviousPlayerState;
+	EStateEnemy PreviousEnemyState;
 
 	UFUNCTION(BlueprintCallable)
-		void SetNewPlayerState(EStateEnemy newState);
+		void SetNewEnemyState(EStateEnemy newEnemyState);
 
 	UFUNCTION(BlueprintPure)
-		EStateEnemy GetPreviousPlayerState();
+		EStateEnemy GetPreviousEnemyState();
 
 	UPROPERTY(EditAnywhere, Category = "Animations")
 		TSubclassOf<UAnimSequence>Animation_Running;

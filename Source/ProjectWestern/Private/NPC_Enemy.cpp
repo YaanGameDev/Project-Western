@@ -31,24 +31,19 @@ ANPC_Enemy::ANPC_Enemy()
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &ANPC_Enemy::BeginCollisionNPCEnemy);
 }
 
-void ANPC_Enemy::DestroyEnemy()
-{
-	if (IsValid(this))
-	{
-		this->Destroy();
-	}
-}
+
 
 // Called when the game starts or when spawned
 void ANPC_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
+	SetNewEnemyState(EStateEnemy::Running);
 }
 
 void ANPC_Enemy::BeginCollisionNPCEnemy(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	CharacterRunner = Cast<ACharacterRunner>(OtherActor);
-	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death && GetPlayerState() != EStateEnemy::Death)
+	if (IsValid(CharacterRunner) && CharacterRunner->GetPlayerState() != EStateAnimationsPlayer::Death && GetEnemyState() != EStateEnemy::Death)
 	{
 		CharacterRunner->DeathFunction();
 	}
@@ -59,25 +54,36 @@ void ANPC_Enemy::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ANPC_Enemy::DeathFunction()
+void ANPC_Enemy::EnemyDeathFunction()
 {
-	SetNewPlayerState(EStateEnemy::Death);
+	SetNewEnemyState(EStateEnemy::Death);
+	UKismetSystemLibrary::PrintString(this, FString(__FUNCTION__));
 	GetWorldTimerManager().SetTimer(TimerEnemyDestroy, this, &ANPC_Enemy::DestroyEnemy, TimerDestroy, false);
+	
 }
 
-EStateEnemy ANPC_Enemy::GetPlayerState()
+void ANPC_Enemy::SetNewEnemyState(EStateEnemy newEnemyState)
 {
-	return currentPlayerState;
+	UKismetSystemLibrary::PrintString(this, FString::Printf(TEXT("previous = %d, current = %d"), currentEnemyState, newEnemyState));
+	PreviousEnemyState = currentEnemyState;
+	currentEnemyState = newEnemyState;
 }
 
-void ANPC_Enemy::SetNewPlayerState(EStateEnemy newState)
+EStateEnemy ANPC_Enemy::GetEnemyState()
 {
-	PreviousPlayerState = currentPlayerState;
-	currentPlayerState = newState;
+	return currentEnemyState;
 }
 
-EStateEnemy ANPC_Enemy::GetPreviousPlayerState()
+EStateEnemy ANPC_Enemy::GetPreviousEnemyState()
 {
-	return PreviousPlayerState;
+	return PreviousEnemyState;
 }
 
+void ANPC_Enemy::DestroyEnemy()
+{
+	if (IsValid(this))
+	{
+		this->Destroy();
+		UKismetSystemLibrary::PrintString(this, FString(__FUNCTION__));
+	}	
+}

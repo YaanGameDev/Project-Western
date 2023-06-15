@@ -53,7 +53,7 @@ void AProjectile::BeginCollisionProjectile(UPrimitiveComponent* OverlappedCompon
 			if (Enemy)
 			{
 				AddEnemies();
-				Enemy->DeathFunction();
+				Enemy->EnemyDeathFunction();
 				Enemy->SetActorEnableCollision(false);
 				this->Destroy();
 			}
