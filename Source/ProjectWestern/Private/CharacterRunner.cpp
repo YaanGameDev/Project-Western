@@ -125,6 +125,11 @@ void ACharacterRunner::Tick(float DeltaTime)
 		{
 		}
 	}
+
+	FVector CurrentLocation = GetActorLocation();
+	CurrentLocation = CurrentLocation + VelocityMovementCharacter * DeltaTime;
+	SetActorLocation(CurrentLocation);
+
 }
 
 // Called to bind functionality to input

@@ -8,10 +8,12 @@
 #include "InGameBaseWidget.h"
 #include "EnemyObstacle.h"
 #include "CharacterRunner.h"
+#include "Floor.h"
 
 void AMainGameModeBase::BeginPlay()
 {
 	ApplyHUDChanges();
+	CreateInitialFloor();
 }
 
 AMainGameModeBase::AMainGameModeBase()
@@ -131,6 +133,29 @@ double AMainGameModeBase::GetCurrentDifficulty()
 AMainGameModeBase* AMainGameModeBase::GetGameMode(UObject* WorldObject)
 {
 	return WorldObject->GetWorld()->GetAuthGameMode<AMainGameModeBase>();
+}
+
+AFloor* AMainGameModeBase::AddFloor()
+{
+	UWorld* World = GetWorld();
+
+	if (World)
+	{
+		AFloor* Floor = World->SpawnActor<AFloor>(FloorClass, NextSpawnPoint);
+		if (Floor)
+		{
+			NextSpawnPoint = Floor->GetAttachTransform();
+		}
+	}
+	return nullptr;
+}
+
+void AMainGameModeBase::CreateInitialFloor()
+{
+	for (int i = 0; i <NumInitialFloor; i++)
+	{
+		AddFloor();
+	}
 }
 
 

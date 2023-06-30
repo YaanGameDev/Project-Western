@@ -81,6 +81,23 @@ public:
 
 	static AMainGameModeBase* GetGameMode(UObject* WorldObject);
 
+
+	// code for Procedural Level Generation
+	UFUNCTION(BlueprintCallable)
+		AFloor* AddFloor();
+
+	UPROPERTY(EditAnywhere, Category = "ConfigsProcedural")
+		TSubclassOf<AFloor>FloorClass;
+
+	UPROPERTY(VisibleInstanceOnly, Category = "ConfigsProcedural")
+		FTransform NextSpawnPoint;
+
+	UPROPERTY(EditDefaultsOnly, Category = "ConfigsProcedural")
+		int32 NumInitialFloor = 10;
+
+	UFUNCTION()
+		void CreateInitialFloor();
+
 protected:
 	EHUDState HUDState;
 

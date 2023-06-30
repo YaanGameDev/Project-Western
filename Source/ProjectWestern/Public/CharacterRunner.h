@@ -31,7 +31,7 @@ public:
 
 	//Calling Actors
 	UPROPERTY()
-	ACharacterRunner* CharacterRunner;
+		ACharacterRunner* CharacterRunner;
 
 	UPROPERTY()
 		AWeapon* Weapon;
@@ -47,16 +47,16 @@ public:
 		int32 TotalCoins = 0;
 
 	//End Code for Coins Collect
-	
+
 	//Player Death
 	UFUNCTION(BlueprintNativeEvent)
-	void DeathFunction();
-	
+		void DeathFunction();
+
 	//Player Jump
 	void PlayerJump();
 
 	UPROPERTY(EditDefaultsOnly, Category = "SettingJumpVelocity")
-	float JumpVelocity = 0;
+		float JumpVelocity = 0;
 
 	void FireWeapon();
 
@@ -73,7 +73,7 @@ protected:
 	//Components Character
 	UPROPERTY(EditAnywhere)
 		class UCameraComponent* CameraPlayer;
-	
+
 	//Fire Projectile
 
 	void PressShooting();
@@ -88,7 +88,7 @@ protected:
 
 	//variable booleana for the character firing
 	UPROPERTY(BlueprintReadWrite)
-	bool isShooting;
+		bool isShooting;
 
 	//Property for the weapon spawn in character hand
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
@@ -111,4 +111,7 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "TimerGamePaused");
 	float ValueTimerPauseGame;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Velocity Movement")
+		FVector VelocityMovementCharacter = { 0,0,0 };
 };
