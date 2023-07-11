@@ -38,15 +38,8 @@ void ACharacterRunner::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SpawnWithWeapon();
 
-	FActorSpawnParameters Parameters;
-	Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass.LoadSynchronous(), FTransform(), Parameters);
-	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_pickup"));
-
-	GameMode = Cast<AMainGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-
-	check(GameMode);
 }
 
 void ACharacterRunner::PressShooting()
@@ -56,7 +49,6 @@ void ACharacterRunner::PressShooting()
 	{
 		return;
 	}
-	
 }
 
 void ACharacterRunner::FireWeapon()
@@ -69,6 +61,14 @@ void ACharacterRunner::FireWeapon()
 		}
 	}
 	isShooting = false;
+}
+
+void ACharacterRunner::SpawnWithWeapon()
+{
+	FActorSpawnParameters Parameters;
+	Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass.LoadSynchronous(), FTransform(), Parameters);
+	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_pickup"));
 }
 
 void ACharacterRunner::SetNewPlayerState(EStateAnimationsPlayer newState)
@@ -125,6 +125,11 @@ void ACharacterRunner::Tick(float DeltaTime)
 		{
 		}
 	}
+
+	FVector CurrentLocation = GetActorLocation();
+	CurrentLocation = CurrentLocation + RunningVelocity * DeltaTime;
+	SetActorLocation(CurrentLocation);
+
 }
 
 // Called to bind functionality to input
@@ -140,6 +145,7 @@ void ACharacterRunner::DeathFunction_Implementation()
 	GetWorldTimerManager().SetTimer(TimerDeathState, this, &ACharacterRunner::ViewportDeathHUD, DeathStateTimer, false);
 	SetNewPlayerState(EStateAnimationsPlayer::Death);
 	GetCharacterMovement()->DisableMovement();
+	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, TEXT("Function: %d Está funcionando como deveria"));
 }
 
 void ACharacterRunner::PlayerJump()
@@ -148,6 +154,7 @@ void ACharacterRunner::PlayerJump()
 	{
 		GetCharacterMovement()->JumpZVelocity = JumpVelocity;
 		Jump();
+		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, TEXT("Function: %d Está funcionando como deveria"));
 	}
 }
 
@@ -161,6 +168,7 @@ void ACharacterRunner::ViewportDeathHUD()
 void ACharacterRunner::SetGamePaused()
 {
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
+	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, TEXT("Function: %d Está funcionando como deveria"));
 }
 
 

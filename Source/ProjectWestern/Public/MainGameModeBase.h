@@ -10,6 +10,7 @@
 
 class UUserWidget;
 class AHostileEntity;
+class AFloor;
 
 UENUM(BlueprintType)
 enum class EHUDState : uint8
@@ -80,6 +81,22 @@ public:
 		int CoinsValue = 10;
 
 	static AMainGameModeBase* GetGameMode(UObject* WorldObject);
+
+
+	UPROPERTY(EditAnywhere, Category = "ConfigsProcedural")
+		TSubclassOf<AFloor>BP_Floor;
+
+	UFUNCTION()
+		void CreateInitialFloor();
+
+	UPROPERTY(EditAnywhere, Category = "ConfigsProcedural")
+		int32 InitialNumFloor = 1;
+
+	UFUNCTION()
+		AFloor* AddFloor();
+
+	UPROPERTY(VisibleInstanceOnly, Category = "ConfigsProcedural")
+		FTransform NextSpawnPoint;
 
 protected:
 	EHUDState HUDState;
