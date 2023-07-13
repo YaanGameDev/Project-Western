@@ -28,11 +28,6 @@ AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 }
 
-void ACharacterRunner::AddCoin()
-{
-	GameMode->AddCoin();
-}
-
 // Called when the game starts or when spawned
 void ACharacterRunner::BeginPlay()
 {
@@ -40,6 +35,13 @@ void ACharacterRunner::BeginPlay()
 
 	SpawnWithWeapon();
 
+	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
+
+}
+
+void ACharacterRunner::AddCoin()
+{
+	GameMode->AddCoin();
 }
 
 void ACharacterRunner::PressShooting()
@@ -145,7 +147,6 @@ void ACharacterRunner::DeathFunction_Implementation()
 	GetWorldTimerManager().SetTimer(TimerDeathState, this, &ACharacterRunner::ViewportDeathHUD, DeathStateTimer, false);
 	SetNewPlayerState(EStateAnimationsPlayer::Death);
 	GetCharacterMovement()->DisableMovement();
-	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, TEXT("Function: %d Está funcionando como deveria"));
 }
 
 void ACharacterRunner::PlayerJump()
@@ -154,7 +155,6 @@ void ACharacterRunner::PlayerJump()
 	{
 		GetCharacterMovement()->JumpZVelocity = JumpVelocity;
 		Jump();
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, TEXT("Function: %d Está funcionando como deveria"));
 	}
 }
 
@@ -168,7 +168,6 @@ void ACharacterRunner::ViewportDeathHUD()
 void ACharacterRunner::SetGamePaused()
 {
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
-	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, TEXT("Function: %d Está funcionando como deveria"));
 }
 
 

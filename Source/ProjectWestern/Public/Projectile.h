@@ -21,8 +21,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	//Forward Projectile
-	UPROPERTY(EditAnywhere)
-		float VelocityProjectile = 0;
+	UPROPERTY(EditDefaultsOnly, Category = "VelocityProjectile")
+		FVector VelocityProjectile = { 0,0,0 };
 
 	//Code for kill enemies count
 	UFUNCTION(BlueprintCallable)

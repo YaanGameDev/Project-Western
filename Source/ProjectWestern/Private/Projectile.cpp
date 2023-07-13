@@ -23,7 +23,7 @@ AProjectile::AProjectile()
 
 	Projectile = CreateDefaultSubobject<UStaticMeshComponent>(FName("Projectile"));
 	Projectile->SetRelativeScale3D(FVector(10.f, 10.f, 10.f));
-	Projectile->SetRelativeRotation(FRotator3d(0.0f, 90.f, 0.f));
+	Projectile->SetRelativeRotation(FRotator3d(0.0f, 0.f, 0.f));
 	RootComponent = Projectile;
 
 	CollisionProjectile = CreateDefaultSubobject<USphereComponent>(FName("CollisionProjectile"));
@@ -72,6 +72,7 @@ void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FVector CurrentDirecion = { 0.0 , -VelocityProjectile , 0.0};
-	Projectile->AddForce(CurrentDirecion * 10, NAME_None, true);
+	FVector CurrentDirection = GetActorLocation();
+	CurrentDirection = CurrentDirection + VelocityProjectile * DeltaTime;
+	Projectile->AddForce(CurrentDirection * VelocityProjectile, NAME_None, true);
 }
