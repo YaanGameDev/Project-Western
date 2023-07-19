@@ -65,6 +65,9 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditDefaultsOnly, Category = "RunningVelocity")
+		FVector RunningVelocity = { 0,0,0 };
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
@@ -93,6 +96,9 @@ protected:
 	//Property for the weapon spawn in character hand
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 		TSoftClassPtr<class AWeapon> WeaponClass;
+
+	UFUNCTION()
+	void SpawnWithWeapon();
 
 	//State Animations for Player
 	EStateAnimationsPlayer currentPlayerState;

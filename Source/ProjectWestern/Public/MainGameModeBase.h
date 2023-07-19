@@ -10,6 +10,7 @@
 
 class UUserWidget;
 class AHostileEntity;
+class AFloor;
 
 UENUM(BlueprintType)
 enum class EHUDState : uint8
@@ -82,21 +83,20 @@ public:
 	static AMainGameModeBase* GetGameMode(UObject* WorldObject);
 
 
-	// code for Procedural Level Generation
-	UFUNCTION(BlueprintCallable)
-		AFloor* AddFloor();
-
 	UPROPERTY(EditAnywhere, Category = "ConfigsProcedural")
-		TSubclassOf<AFloor>FloorClass;
-
-	UPROPERTY(VisibleInstanceOnly, Category = "ConfigsProcedural")
-		FTransform NextSpawnPoint;
-
-	UPROPERTY(EditDefaultsOnly, Category = "ConfigsProcedural")
-		int32 NumInitialFloor = 10;
+		TSubclassOf<AFloor>BP_Floor;
 
 	UFUNCTION()
 		void CreateInitialFloor();
+
+	UPROPERTY(EditAnywhere, Category = "ConfigsProcedural")
+		int32 InitialNumFloor = 1;
+
+	UFUNCTION()
+		AFloor* AddFloor();
+
+	UPROPERTY(VisibleInstanceOnly, Category = "ConfigsProcedural")
+		FTransform NextSpawnPoint;
 
 protected:
 	EHUDState HUDState;

@@ -12,8 +12,10 @@
 
 void AMainGameModeBase::BeginPlay()
 {
-	ApplyHUDChanges();
+
 	CreateInitialFloor();
+
+	ApplyHUDChanges();
 }
 
 AMainGameModeBase::AMainGameModeBase()
@@ -135,27 +137,28 @@ AMainGameModeBase* AMainGameModeBase::GetGameMode(UObject* WorldObject)
 	return WorldObject->GetWorld()->GetAuthGameMode<AMainGameModeBase>();
 }
 
+void AMainGameModeBase::CreateInitialFloor()
+{
+	for (int i = 0; i < InitialNumFloor; i++)
+	{
+		AddFloor();
+	}
+}
+
 AFloor* AMainGameModeBase::AddFloor()
 {
 	UWorld* World = GetWorld();
 
 	if (World)
 	{
-		AFloor* Floor = World->SpawnActor<AFloor>(FloorClass, NextSpawnPoint);
+		AFloor* Floor = World->SpawnActor<AFloor>(BP_Floor, NextSpawnPoint);
+
 		if (Floor)
 		{
 			NextSpawnPoint = Floor->GetAttachTransform();
 		}
 	}
 	return nullptr;
-}
-
-void AMainGameModeBase::CreateInitialFloor()
-{
-	for (int i = 0; i <NumInitialFloor; i++)
-	{
-		AddFloor();
-	}
 }
 
 

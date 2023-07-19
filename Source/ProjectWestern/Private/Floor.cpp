@@ -1,8 +1,8 @@
 //Engine
 #include "Floor.h"
+#include "Components/SceneComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
-#include "Components/SceneComponent.h"
 #include "Components/ArrowComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -25,10 +25,12 @@ AFloor::AFloor()
 	AttachPoint = CreateDefaultSubobject<UArrowComponent>(TEXT("AttachPoint"));
 	AttachPoint->SetupAttachment(SceneComponent);
 
-	BoxCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
-	BoxCollision->SetupAttachment(SceneComponent);
+	TriggerBox = CreateDefaultSubobject<UBoxComponent>(TEXT("TriggerBox"));
+	TriggerBox->SetCollisionProfileName(TEXT("OverlapOnlyPawn"));
+	TriggerBox->InitBoxExtent(FVector(20.f, 5.f, 5.f));
+	TriggerBox->SetupAttachment(SceneComponent);
 
-	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AFloor::BeginBoxCollision);
+	TriggerBox->OnComponentBeginOverlap.AddDynamic(this, &AFloor::BeginTriggerBox);
 }
 
 // Called when the game starts or when spawned
@@ -42,24 +44,14 @@ void AFloor::BeginPlay()
 	check(GameMode);
 }
 
-void AFloor::BeginBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AFloor::BeginTriggerBox(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	CharacterRunner = Cast<ACharacterRunner>(OtherActor);
 	if (IsValid(CharacterRunner))
 	{
 		GameMode->AddFloor();
-
-		GetWorldTimerManager().SetTimer(TimerDestroyFloor, this, &AFloor::DestroyFloor, 3.f, false);
 	}
-}
 
-void AFloor::DestroyFloor()
-{
-	if (TimerDestroyFloor.IsValid())
-	{
-		GetWorldTimerManager().ClearTimer(TimerDestroyFloor);
-	}
-	this->Destroy();
 }
 
 // Called every frame

@@ -28,25 +28,20 @@ AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 }
 
-void ACharacterRunner::AddCoin()
-{
-	GameMode->AddCoin();
-}
-
 // Called when the game starts or when spawned
 void ACharacterRunner::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SpawnWithWeapon();
 
-	FActorSpawnParameters Parameters;
-	Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass.LoadSynchronous(), FTransform(), Parameters);
-	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_pickup"));
+	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
 
-	GameMode = Cast<AMainGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+}
 
-	check(GameMode);
+void ACharacterRunner::AddCoin()
+{
+	GameMode->AddCoin();
 }
 
 void ACharacterRunner::PressShooting()
@@ -56,7 +51,6 @@ void ACharacterRunner::PressShooting()
 	{
 		return;
 	}
-	
 }
 
 void ACharacterRunner::FireWeapon()
@@ -69,6 +63,14 @@ void ACharacterRunner::FireWeapon()
 		}
 	}
 	isShooting = false;
+}
+
+void ACharacterRunner::SpawnWithWeapon()
+{
+	FActorSpawnParameters Parameters;
+	Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	Weapon = GetWorld()->SpawnActor<AWeapon>(WeaponClass.LoadSynchronous(), FTransform(), Parameters);
+	Weapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_r_pickup"));
 }
 
 void ACharacterRunner::SetNewPlayerState(EStateAnimationsPlayer newState)
@@ -127,7 +129,7 @@ void ACharacterRunner::Tick(float DeltaTime)
 	}
 
 	FVector CurrentLocation = GetActorLocation();
-	CurrentLocation = CurrentLocation + VelocityMovementCharacter * DeltaTime;
+	CurrentLocation = CurrentLocation + RunningVelocity * DeltaTime;
 	SetActorLocation(CurrentLocation);
 
 }
