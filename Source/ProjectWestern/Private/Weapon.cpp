@@ -23,7 +23,7 @@ void AWeapon::SpawnProjectile(const FRotator& projectileRotation)
 	FActorSpawnParameters ParametersProjectile;
 	ParametersProjectile.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	FVector SpawnProjectile = GetActorLocation();
+	FVector SpawnProjectile = SphereSpawnProjectile->GetComponentLocation();
 
 	
 	Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnProjectile, projectileRotation, ParametersProjectile);

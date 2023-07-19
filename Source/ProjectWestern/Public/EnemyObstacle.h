@@ -4,14 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "HostileEntity.h"
 #include "EnemyObstacle.generated.h"
 
 class ACharacterRunner;
 class AMainGameModeBase;
 
 UCLASS()
-class PROJECTWESTERN_API AEnemyObstacle : public AHostileEntity
+class PROJECTWESTERN_API AEnemyObstacle : public AActor
 {
 	GENERATED_BODY()
 	

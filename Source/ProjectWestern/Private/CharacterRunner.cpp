@@ -129,7 +129,7 @@ void ACharacterRunner::Tick(float DeltaTime)
 	}
 
 	FVector CurrentLocation = GetActorLocation();
-	CurrentLocation = CurrentLocation + RunningVelocity * DeltaTime;
+	CurrentLocation = CurrentLocation + (RunningVelocity * GameMode->CurrentDifficultyFactor) * DeltaTime;
 	SetActorLocation(CurrentLocation);
 
 }

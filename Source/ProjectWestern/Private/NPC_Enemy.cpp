@@ -56,15 +56,13 @@ void ANPC_Enemy::Tick(float DeltaTime)
 
 void ANPC_Enemy::EnemyDeathFunction()
 {
-	SetNewEnemyState(EStateEnemy::Death);
-	UKismetSystemLibrary::PrintString(this, FString(__FUNCTION__));
+	SetNewEnemyState(EStateEnemy::Death);;
 	GetWorldTimerManager().SetTimer(TimerEnemyDestroy, this, &ANPC_Enemy::DestroyEnemy, TimerDestroy, false);
 	
 }
 
 void ANPC_Enemy::SetNewEnemyState(EStateEnemy newEnemyState)
 {
-	UKismetSystemLibrary::PrintString(this, FString::Printf(TEXT("previous = %d, current = %d"), currentEnemyState, newEnemyState));
 	PreviousEnemyState = currentEnemyState;
 	currentEnemyState = newEnemyState;
 }
@@ -84,6 +82,5 @@ void ANPC_Enemy::DestroyEnemy()
 	if (IsValid(this))
 	{
 		this->Destroy();
-		UKismetSystemLibrary::PrintString(this, FString(__FUNCTION__));
 	}	
 }
