@@ -84,7 +84,7 @@ public:
 
 
 	UPROPERTY(EditAnywhere, Category = "ConfigsProcedural")
-		TSubclassOf<AFloor>BP_Floor;
+		TArray<TSubclassOf<AFloor>>PossibleChoices;
 
 	UFUNCTION()
 		void CreateInitialFloor();
@@ -94,6 +94,9 @@ public:
 
 	UFUNCTION()
 		AFloor* AddFloor();
+
+	UFUNCTION()
+		TSubclassOf<AFloor> GetRandomFloorTile();
 
 	UPROPERTY(VisibleInstanceOnly, Category = "ConfigsProcedural")
 		FTransform NextSpawnPoint;

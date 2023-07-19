@@ -142,6 +142,7 @@ void AMainGameModeBase::CreateInitialFloor()
 	for (int i = 0; i < InitialNumFloor; i++)
 	{
 		AddFloor();
+
 	}
 }
 
@@ -151,14 +152,29 @@ AFloor* AMainGameModeBase::AddFloor()
 
 	if (World)
 	{
-		AFloor* Floor = World->SpawnActor<AFloor>(BP_Floor, NextSpawnPoint);
-
-		if (Floor)
+		TSubclassOf<AFloor> ChoiceClass = GetRandomFloorTile();
+		if (ChoiceClass != nullptr)
 		{
-			NextSpawnPoint = Floor->GetAttachTransform();
+			AFloor* Floor = World->SpawnActor<AFloor>(ChoiceClass, NextSpawnPoint);
+			if (Floor)
+			{
+				NextSpawnPoint = Floor->GetAttachTransform();
+				return Floor;
+			}
 		}
 	}
 	return nullptr;
+}
+
+TSubclassOf<AFloor> AMainGameModeBase::GetRandomFloorTile()
+{
+	if (PossibleChoices.IsEmpty())
+	{
+		return nullptr;
+	}
+	int RandomIndex = FMath::RandRange(0, PossibleChoices.Num() - 1);
+
+	return PossibleChoices[RandomIndex];
 }
 
 

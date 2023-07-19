@@ -50,8 +50,18 @@ void AFloor::BeginTriggerBox(UPrimitiveComponent* OverlappedComponent, AActor* O
 	if (IsValid(CharacterRunner))
 	{
 		GameMode->AddFloor();
-	}
 
+		GetWorldTimerManager().SetTimer(TimerDestroyFloor, this, &AFloor::DestroyFloor, 5.f, false);
+	}
+}
+
+void AFloor::DestroyFloor()
+{
+	if (TimerDestroyFloor.IsValid())
+	{
+		GetWorldTimerManager().ClearTimer(TimerDestroyFloor);
+	}
+	this->Destroy();
 }
 
 // Called every frame
