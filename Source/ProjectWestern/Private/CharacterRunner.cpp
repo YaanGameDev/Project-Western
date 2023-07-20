@@ -101,18 +101,21 @@ void ACharacterRunner::Tick(float DeltaTime)
 			{
 				SetNewPlayerState(EStateAnimationsPlayer::Shooting);
 			}
-			else if(GetCharacterMovement()->GetLastUpdateVelocity().Z > 0)
-			{
-				SetNewPlayerState(EStateAnimationsPlayer::Jumping);
-			}
 			break;
 		}
 		case EStateAnimationsPlayer::Jumping:
 		{
-			 if (!GetCharacterMovement()->IsFalling())
+			if(!GetCharacterMovement()->IsFalling())
 			{
 				SetNewPlayerState(EStateAnimationsPlayer::Idle);
 			}
+			if (isShooting)
+			{
+				if(GetCharacterMovement()->GetLastUpdateVelocity().Z > 0)
+				{
+					SetNewPlayerState(EStateAnimationsPlayer::Jumping);
+			}
+				}
 			break;
 		}
 		case EStateAnimationsPlayer::Shooting:
@@ -147,6 +150,7 @@ void ACharacterRunner::DeathFunction_Implementation()
 	GetWorldTimerManager().SetTimer(TimerDeathState, this, &ACharacterRunner::ViewportDeathHUD, DeathStateTimer, false);
 	SetNewPlayerState(EStateAnimationsPlayer::Death);
 	GetCharacterMovement()->DisableMovement();
+	
 }
 
 void ACharacterRunner::PlayerJump()
