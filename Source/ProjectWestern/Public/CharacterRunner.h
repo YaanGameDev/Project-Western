@@ -117,7 +117,4 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "TimerGamePaused");
 	float ValueTimerPauseGame;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Velocity Movement")
-		FVector VelocityMovementCharacter = { 0,0,0 };
 };

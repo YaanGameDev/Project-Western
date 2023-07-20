@@ -74,5 +74,5 @@ void AProjectile::Tick(float DeltaTime)
 
 	FVector CurrentDirection = GetActorLocation();
 	CurrentDirection = CurrentDirection + VelocityProjectile * DeltaTime;
-	Projectile->AddForce(CurrentDirection * VelocityProjectile, NAME_None, true);
+	SetActorLocation(CurrentDirection);
 }

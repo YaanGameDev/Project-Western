@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "HostileEntity.h"
 #include "NPC_Enemy.generated.h"
 
 class ACharacterRunner;
@@ -18,7 +17,7 @@ enum class EStateEnemy : uint8
 };
 
 UCLASS()
-class PROJECTWESTERN_API ANPC_Enemy : public AHostileEntity
+class PROJECTWESTERN_API ANPC_Enemy : public AActor
 {
 	GENERATED_BODY()
 	
@@ -43,12 +42,6 @@ public:
 
 	UFUNCTION(BlueprintPure)
 		EStateEnemy GetPreviousEnemyState();
-
-	UPROPERTY(EditAnywhere, Category = "Animations")
-		TSubclassOf<UAnimSequence>Animation_Running;
-
-	UPROPERTY(EditAnywhere, Category = "Animations")
-		TSubclassOf<UAnimSequence>Animation_Death;
 
 	FTimerHandle TimerEnemyDestroy;
 
