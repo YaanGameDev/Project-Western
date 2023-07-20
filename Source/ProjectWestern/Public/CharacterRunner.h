@@ -117,5 +117,4 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "TimerGamePaused");
 	float ValueTimerPauseGame;
-
 };

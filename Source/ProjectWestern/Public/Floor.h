@@ -45,6 +45,12 @@ public:
 	UPROPERTY()
 	ACharacterRunner* CharacterRunner;
 
+	UFUNCTION()
+		void DestroyFloor();
+
+	UPROPERTY(EditDefaultsOnly, Category = "ConfigsProcedural")
+		FTimerHandle TimerDestroyFloor;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
