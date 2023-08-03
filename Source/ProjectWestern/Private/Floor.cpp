@@ -51,7 +51,7 @@ void AFloor::BeginTriggerBox(UPrimitiveComponent* OverlappedComponent, AActor* O
 	{
 		GameMode->AddFloor();
 
-		GetWorldTimerManager().SetTimer(TimerDestroyFloor, this, &AFloor::DestroyFloor, 5.f, false);
+		GetWorldTimerManager().SetTimer(TimerDestroyFloor, this, &AFloor::DestroyFloor, 8.f, false);
 	}
 }
 
