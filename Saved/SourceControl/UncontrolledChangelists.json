@@ -5,6 +5,13 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
+				"D:/Jogos Unreal/Projects 5.0/Project-Western/Content/Blueprints/BlueprintsMap/Floor/FloorTypes/BP_Floor.uasset",
+				"D:/Jogos Unreal/Projects 5.0/Project-Western/Content/Blueprints/BlueprintsMap/Floor/FloorTypes/BP_FloorType02.uasset",
+				"D:/Jogos Unreal/Projects 5.0/Project-Western/Content/Blueprints/BlueprintsMap/Floor/FloorTypes/BP_FloorType03.uasset",
+				"D:/Jogos Unreal/Projects 5.0/Project-Western/Content/Blueprints/BlueprintsMap/Floor/FloorTypes/BP_FloorType04.uasset",
+				"D:/Jogos Unreal/Projects 5.0/Project-Western/Content/Blueprints/BlueprintsMap/Floor/FloorTypes/BP_FloorType05.uasset",
+				"D:/Jogos Unreal/Projects 5.0/Project-Western/Content/Blueprints/GameMode/BP_MainGameModeBase.uasset",
+				"D:/Jogos Unreal/Projects 5.0/Project-Western/Content/Map/mainmenumap.umap",
 				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/Map/MainMap.umap",
 				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/MainMap.umap",
 				"D:/Jogos Unreal/Projects 5.0/ProjectWestern/ProjectWestern/Content/HUD/Death/HUD/HUD_Death.uasset",
