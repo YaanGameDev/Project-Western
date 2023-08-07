@@ -36,8 +36,6 @@ class PROJECTWESTERN_API AMainGameModeBase : public AGameModeBase
 	virtual void BeginPlay() override;
 
 public:
-	AMainGameModeBase();
-
 	void ApplyHUDChanges();
 
 	EHUDState GetHUDState();

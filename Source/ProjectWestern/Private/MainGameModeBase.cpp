@@ -12,15 +12,10 @@
 
 void AMainGameModeBase::BeginPlay()
 {
-
+	HUDState = EHUDState::HUD_MainMenu;
 	CreateInitialFloor();
 
 	ApplyHUDChanges();
-}
-
-AMainGameModeBase::AMainGameModeBase()
-{
-	HUDState = EHUDState::HUD_MainMenu;
 }
 
 void AMainGameModeBase::ApplyHUDChanges()
@@ -94,6 +89,7 @@ bool AMainGameModeBase::ApplyHUD(TSubclassOf<class UUserWidget> WidgetToApply, b
 			MyController->bEnableClickEvents = EnableClickEvents;
 
 			CurrentWidget->RemoveFromParent();
+			
 		}
 		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), WidgetToApply);
 
