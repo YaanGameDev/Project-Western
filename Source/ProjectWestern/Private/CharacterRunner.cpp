@@ -147,9 +147,9 @@ void ACharacterRunner::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void ACharacterRunner::DeathFunction_Implementation()
 {
-	GetWorldTimerManager().SetTimer(TimerDeathState, this, &ACharacterRunner::ViewportDeathHUD, DeathStateTimer, false);
 	SetNewPlayerState(EStateAnimationsPlayer::Death);
 	GetCharacterMovement()->DisableMovement();
+	GetWorldTimerManager().SetTimer(TimerPauseGame, this, &ACharacterRunner::SetGamePaused, 3.5f, false);
 	
 }
 
@@ -160,12 +160,6 @@ void ACharacterRunner::PlayerJump()
 		GetCharacterMovement()->JumpZVelocity = JumpVelocity;
 		Jump();
 	}
-}
-
-void ACharacterRunner::ViewportDeathHUD()
-{
-	GameMode = Cast<AMainGameModeBase>(GetWorld()->GetAuthGameMode());
-	GetWorldTimerManager().SetTimer(TimerPauseGame, this, &ACharacterRunner::SetGamePaused, ValueTimerPauseGame, false);
 }
 
 void ACharacterRunner::SetGamePaused()

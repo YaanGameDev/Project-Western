@@ -87,8 +87,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "SettingsTimerDeath")
 		float DeathStateTimer = 2;
 
-	void ViewportDeathHUD();
-
 	//variable booleana for the character firing
 	UPROPERTY(BlueprintReadWrite)
 		bool isShooting;
