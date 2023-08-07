@@ -37,15 +37,14 @@ AFloor::AFloor()
 void AFloor::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	GameMode = Cast<AMainGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	GameMode->ChangeHUDState(EHUDState::HUD_InGame);
 
-	check(GameMode);
+	GameMode = Cast<AMainGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+
 }
 
 void AFloor::BeginTriggerBox(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	
 	CharacterRunner = Cast<ACharacterRunner>(OtherActor);
 	if (IsValid(CharacterRunner))
 	{

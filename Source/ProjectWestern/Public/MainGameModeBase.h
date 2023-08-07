@@ -12,18 +12,6 @@ class UUserWidget;
 class AHostileEntity;
 class AFloor;
 
-UENUM(BlueprintType)
-enum class EHUDState : uint8
-{
-	HUD_MainMenu,
-	HUD_InGame,
-	HUD_PauseGame,
-	HUD_Death,
-	HUD_Credits,
-	HUD_Shop,
-	HUD_Tutorial
-};
-
 /**
  * 
  */
@@ -36,16 +24,6 @@ class PROJECTWESTERN_API AMainGameModeBase : public AGameModeBase
 	virtual void BeginPlay() override;
 
 public:
-	void ApplyHUDChanges();
-
-	EHUDState GetHUDState();
-
-	UFUNCTION(BlueprintCallable, Category = "HUD Functions")
-	void ChangeHUDState(EHUDState newState);
-
-
-	bool ApplyHUD(TSubclassOf<UUserWidget> WidgetToApply, bool bShowMouseCursor, bool EnableClickEvents);
-
 
 	//Code for Collect Coins
 	UFUNCTION(BlueprintCallable)
@@ -100,31 +78,4 @@ public:
 		FTransform NextSpawnPoint;
 
 protected:
-	EHUDState HUDState;
-
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
-		TSubclassOf<UUserWidget> MainMenuHUDClass;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
-		TSubclassOf<UUserWidget> InGameHUDClass;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
-		TSubclassOf<UUserWidget> PauseGameHUDClass;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
-		TSubclassOf<UUserWidget> DeathHUDClass;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
-		TSubclassOf<UUserWidget> CreditsHUDClass;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
-		TSubclassOf<UUserWidget> ShopHUDClass;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "HUDWidget", Meta = (BlueprintProtected = "true"))
-		TSubclassOf<UUserWidget> TutorialHUDClass;
-
-	UPROPERTY()
-	UUserWidget* CurrentWidget;
-	
 };
