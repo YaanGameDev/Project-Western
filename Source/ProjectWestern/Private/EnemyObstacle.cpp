@@ -4,8 +4,8 @@
 #include "EnemyObstacle.h"
 
 //Engine
-#include "Components/SphereComponent.h"
-#include "Components/SkeletalMeshComponent.h"
+#include "Components/BoxComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 //ProjectWestern
@@ -19,13 +19,13 @@ AEnemyObstacle::AEnemyObstacle()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(FName("MeshEnemy"));
-	SkeletalMesh->SetupAttachment(RootComponent);
+	EnemyMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("MeshEnemy"));
+	EnemyMesh->SetupAttachment(RootComponent);
 
-	SphereCollisionEnemy = CreateDefaultSubobject<USphereComponent>(FName("SphereCollision"));
-	SphereCollisionEnemy->SetupAttachment(SkeletalMesh);
+	BoxCollisionEnemy = CreateDefaultSubobject<UBoxComponent>(FName("SphereCollision"));
+	BoxCollisionEnemy->SetupAttachment(EnemyMesh);
 
-	SphereCollisionEnemy->OnComponentBeginOverlap.AddDynamic(this, &AEnemyObstacle::BeginDestroyPlayer);
+	BoxCollisionEnemy->OnComponentBeginOverlap.AddDynamic(this, &AEnemyObstacle::BeginDestroyPlayer);
 
 }
 
